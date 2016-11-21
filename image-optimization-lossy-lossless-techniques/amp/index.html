@@ -1,0 +1,607 @@
+<!doctype html>
+<html ⚡>
+  <head>
+    <meta charset="utf-8">
+    <link rel="canonical" href="https://jmperezperez.com/image-optimization-lossy-lossless-techniques/" >
+    <title>Image optimization: Lossy, lossless and other techniques - Web development, performance, and some other good practices.</title>
+    <meta name="viewport" content="width=device-width,minimum-scale=1,initial-scale=1">
+    <style amp-boilerplate>body{-webkit-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-moz-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-ms-animation:-amp-start 8s steps(1,end) 0s 1 normal both;animation:-amp-start 8s steps(1,end) 0s 1 normal both}@-webkit-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-moz-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-ms-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-o-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}</style>
+    <noscript><style amp-boilerplate>body{-webkit-animation:none;-moz-animation:none;-ms-animation:none;animation:none}</style></noscript>
+    
+    
+    
+    
+    <script async custom-element="amp-analytics" src="https://cdn.ampproject.org/v0/amp-analytics-0.1.js"></script>
+    
+
+    <script async src="https://cdn.ampproject.org/v0.js"></script>
+    <script type="application/ld+json">
+		{
+			"@context": "http://schema.org",
+			"@type": "BlogPosting",
+			"headline": "Image optimization: Lossy, lossless and other techniques",
+			
+			"description": "&lt;p&gt;During last days I have come across interesting articles about images optimization. Images are currently the largest average payload in web sites, meaning a &lt;a href=http://httparchive.org/interesting.php&gt;62%&lt;/a&gt; of all the bytes. With the increasingly importance of responsive design, &lt;a href=&#34;http://css-tricks.com/which-responsive-images-solution-should-you-use/&#34;&gt;responsive images&lt;/a&gt; are becoming a challenge to face.&lt;/p&gt;&lt;p&gt;I have already talked about image optimization in my &lt;a href=/techniques-optimize-web-sites/#images-optimization&gt;list of optimization techniques&lt;/a&gt; and my short &lt;a href=&#34;/jpegoptim-optimize-jpg-page-speed/&#34;&gt;post about using jpegoptim&lt;/a&gt;. But recently I have read about highly compressed JPG to target high-res screens and progressive JPG images, and I thought it would worth sharing.&lt;/p&gt;",
+			
+			"mainEntityOfPage":{
+			    "@type":"WebPage",
+			    "@id":"image-optimization-lossy-lossless-techniques/"
+			},
+			"datePublished": "2013-01-04T20:44:57.000Z",
+			"dateModified": "2016-11-21T08:20:37.000Z",
+			
+			"image": {
+				"@type": "ImageObject",
+				"url": "/amp-dist/sample/sample-substituteTitleImage.png",
+				"width" : "1024",
+				"height" : "800"
+			},
+			
+			"author": {
+			    "@type": "Person",
+			    "name": "Jose M. Perez"
+			},
+			"publisher": {
+			    "@type": "Organization",
+			    "name": "JMPerez Blog"
+			    
+			    ,
+			    "logo": {
+			      "@type": "ImageObject",
+			      "url": "https://jmperezperez.com/amp-dist/logo.png",
+			      "width": 600,
+			      "height": 60
+			    }
+			    
+			}
+		}
+	</script>
+	
+	<style amp-custom>
+		/*--RESET--*/
+* {
+
+    -webkit-box-sizing: border-box;
+       -moz-box-sizing: border-box;
+            box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    border: none;
+    vertical-align: baseline;
+    font: inherit;
+}
+
+input, button {
+    background: none;
+
+    -webkit-appearance: none;
+       -moz-appearance: none;
+            appearance: none;
+}
+
+/*--BODY--*/
+
+body {
+    background: #fff;
+    color: #555;
+    font-family: Georgia, Times;
+    font-weight: 300;
+    font-style: normal;
+    font-size: 19px;
+    line-height: 1.725;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+@media(max-width: 800px) {
+    body {
+        font-size: 17px;
+    }
+}
+
+@media(max-width: 600px) {
+    body {
+        font-size: 15px;
+    }
+}
+
+h1, h2, h3, h4, h5 {
+    color: #212121;
+    font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+    font-weight: 600;
+    font-size: 1em;
+    line-height: 1.3;
+    margin-bottom: 1em;
+}
+
+#menu a, .button {
+
+    font-weight: 400;
+    font-size: 1em;
+}
+
+p, .post ul, .post ol, iframe, video, amp-video {
+    margin: 0;
+    margin-bottom: 1em;
+}
+
+a {
+    color: #2a7cb2;
+    text-decoration: none;
+    font-weight: inherit;
+
+    -webkit-transition: color .15s ease-out, border-bottom-color .15s ease-out;
+       -moz-transition: color .15s ease-out, border-bottom-color .15s ease-out;
+         -o-transition: color .15s ease-out, border-bottom-color .15s ease-out;
+            transition: color .15s ease-out, border-bottom-color .15s ease-out;
+}
+
+a:hover {
+    color: #2a7cb2;
+}
+
+p a {
+    border-bottom: 1px solid #eee;
+}
+
+p a:hover {
+    border-bottom-color: #212121;
+}
+
+strong {
+    font-weight: 400;
+}
+
+em {
+    font-style: italic;
+}
+
+h1 {font-size: 1.7em;}
+h2 {
+    color: #444;
+    font-size: 1.6em;
+    font-weight: 400;
+}
+h3 {
+    color: #666;
+    font-size: 1.4em;
+    font-weight: 400;
+}
+h4 {font-size: 1.18em;}
+h5 {font-size: 1em;}
+
+
+p + h2, p + h3, p + h4, p + h5 {
+    padding-top: 1em;
+}
+
+a h1, a h2, a h3, a h4, a h5 {
+    -webkit-transition: color .15s ease-out;
+       -moz-transition: color .15s ease-out;
+         -o-transition: color .15s ease-out;
+            transition: color .15s ease-out;
+}
+
+a:hover h1, a:hover h2, a:hover h3, a:hover h4, a:hover h5 {
+    color: #3498db;
+}
+
+.quote {
+    margin: 0 0 15px 0;
+}
+
+blockquote {
+    margin: 0 0 15px 0;
+    padding-left: 20px;
+    border-left: 2px solid #ccc;
+    font-style: italic;
+}
+
+ul, ol {
+    margin: 0 0 15px 0;
+    padding-left: 25px;
+}
+
+ul {list-style: square;}
+ol {list-style: decimal;}
+
+sup {vertical-align: super;}
+sub {vertical-align: sub;}
+
+hr {
+    display: block;
+    clear: both;
+    margin: 30px auto;
+    width: 50%;
+    height: 2px;
+    background: #eee;
+    color: #eee;
+}
+
+pre, code {
+/*    overflow-x: auto;
+    margin: 0 0 5% 0;
+    padding-right: 0.5em;
+    padding-left: 0.5em;
+    border: 1px solid #ddd;
+    border-radius: 3px;
+    color: #333;
+    font: 400 15px/24px monospace;*/
+    overflow-x: auto;
+    color: #333;
+    font-family: Courier, Menlo, Monaco;
+    letter-spacing: 0px;
+    font-size: 0.9em;
+}
+
+pre code {
+    padding-left: 0;
+    border: none;
+    font-size: 90%;
+}
+
+pre {
+    padding: 15px 20px;
+}
+
+code {
+    margin: 0;
+}
+
+/*--CLEARFIXES--*/
+
+.post::after {
+    display: block;
+    clear: both;
+    content: '';
+}
+
+/*--HEADER--*/
+
+body > header {
+    font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+    position: relative;
+    overflow: hidden;
+    padding: 1em;
+    width: 100%;
+    border-bottom: 2px solid #eee;
+    text-align: center;
+}
+
+/*--MENU--*/
+
+#menu {
+    display: inline-block;
+    margin: 1px 0;
+}
+
+#menu a {
+    margin-left: 15px;
+    color: #666;
+    text-transform: uppercase;
+    font-size: 14px;
+    padding: 20px 10px;
+}
+
+#menu a:hover {
+    color: #212121;
+}
+#menu a.current {
+    color: #212121;
+}
+
+/*--PAGE--*/
+
+#page {
+    position: relative;
+    margin: 0 auto;
+    padding: 3em 2em;
+    max-width: 40em;
+}
+
+/*--WRAPPER--*/
+
+.wrapper {
+    padding: 7.5% 0;
+    border-top: 2px solid #eee;
+}
+
+.wrapper:first-child {
+    padding-top: 0;
+    border-top: none;
+}
+
+/*--POSTS--*/
+
+.post {
+    display: block;
+    width: 100%;
+}
+
+.post div[itemprop=articleBody] > p:first-child {
+    color: #333;
+}
+
+.post li {
+    margin-bottom: 0.5em;
+}
+
+.post p img {
+    display: block;
+    margin: 5% auto;
+    max-width: 100%;
+    border: 1px solid #eee;
+}
+
+.post .svg-container {
+    text-align: center;
+    margin-bottom: 5%;
+    max-width: 100%;
+}
+
+video {
+  height: auto;
+  max-width: 100%;
+}
+
+.post .svg-container object {
+    width: 100%;
+}
+
+.tags {
+    font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+    font-size: 0.9em;
+}
+
+.tag-list {
+    padding: 0;
+    display: inline-block;
+}
+
+.tag-list li {
+    display: inline-block;
+}
+
+.tag-list li:after {
+    content: ', ';
+}
+
+.tag-list li:last-child:after {
+    content: '';
+}
+
+
+/*--PAGINATION--*/
+
+.pagination {
+    text-align: center;
+}
+
+.pagination a {
+    min-width: 30px;
+    max-height: 30px;
+    text-align: center;
+}
+
+/*--FOOTER--*/
+
+footer {
+    padding: 2em;
+    background: rgba(0, 0, 0, 0.05);
+    text-align: center;
+}
+
+/*--BUTTONS--*/
+
+.button {
+    display: inline-block;
+    padding: 10px 20px;
+    border-radius: 20px;
+    border: 1px solid #555;
+    background-color: #fff;
+    color: #555;
+    font-size: 13px;
+    line-height: 10px;
+
+    -webkit-transition: background-color .15s ease-out;
+       -moz-transition: background-color .15s ease-out;
+         -o-transition: background-color .15s ease-out;
+            transition: background-color .15s ease-out;
+}
+
+.button:hover {
+    background-color: #3498db;
+    color: #fff;
+    border-color: transparent;
+}
+
+.button.inactive {
+    background-color: #ccc;
+    color: #fff;
+}
+
+/*--404--*/
+.search-goog input {
+    padding: 10px;
+    border: 2px solid #ddd;
+}
+
+.search-goog input[type=submit] {
+    background-color: #ddd;
+    cursor: pointer;
+}
+
+@media only screen and (max-width: 768px) {
+
+    /*--PAGE--*/
+
+    #page, .wrapper {
+        margin: 0;
+        max-width: 100%;
+        width: 100%;
+        padding: 1.5em;
+    }
+
+    /*--WRAPPER--*/
+
+    .wrapper {
+        padding: 10% 0;
+    }
+
+    .wraper::after {
+        display: block;
+        clear: both;
+        content: '';
+    }
+
+    /*--POSTS--*/
+
+    .post {
+        margin: 0 auto;
+        max-width: 640px;
+    }
+
+}
+
+/*--ACCESSIBILITY--*/
+.outscreen
+{
+    position: absolute;
+    left: -1000px;
+    top: auto;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+}
+
+/*--CALLOUT--*/
+.callout {
+    font-size: 90%;
+    padding: 20px;
+    margin: 20px 0;
+    border: 1px solid #eee;
+    border-left-width: 5px;
+    border-left-color: #777;
+    border-radius: 3px;
+}
+
+.author {
+    font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+    font-size: 0.8em;
+    margin-bottom: 2em;
+}
+
+.author .name {
+    line-height: 1.5;
+    padding-top: 0.35em;
+}
+
+.media, .bd {
+    overflow: hidden;
+    _overflow: visible;
+    
+}
+
+.media .img {
+    float: left;
+}
+
+.avatar-img {
+    border-radius: 100%;
+    height: 3.5em;
+    width: 3.5em;
+    margin-right: 0.5em;
+}
+
+.highlight {
+    border: 1px solid #eee;
+    margin-bottom: 1em;
+}
+
+/* SYNTAX HIGHLIGHTING */
+
+.highlight {
+  overflow-x: auto;
+}
+
+.code{font-family: Courier,Menlo,Monaco;letter-spacing: 0; font-size: .9em;display:block;background:white;color:#333333;overflow-x:auto}.code .comment,.code .meta{color:#969896}.code .string,.code .variable,.code .template-variable,.code .strong,.code .emphasis,.code .quote{color:#df5000}.code .keyword,.code .selector-tag,.code .type{color:#a71d5d}.code .literal,.code .symbol,.code .bullet,.code .attribute{color:#0086b3}.code .section,.code .name{color:#63a35c}.code .tag{color:#333333}.code .title,.code .attr,.code .selector-id,.code .selector-class,.code .selector-attr,.code .selector-pseudo{color:#795da3}.code .addition{color:#55a532;background-color:#eaffea}.code .deletion{color:#bd2c00;background-color:#ffecec}.code .link{text-decoration:underline}
+
+	</style>
+	
+  </head>
+  <body>
+
+  	<!-- google analytics -->
+  	
+  	<amp-analytics type="googleanalytics" id="google-analytics">
+		<script type="application/json">
+		{
+		  "vars": {
+		    "account": "UA-39254352-1"
+		  },
+		  "triggers": {
+		    "trackPageview": {
+		      "on": "visible",
+		      "request": "pageview"
+		    }
+		  }
+		}
+		</script>
+	</amp-analytics>
+	
+
+  <header>
+      <nav id="menu">
+          <a href="/">JMPerez Blog</a>
+          <a href="/projects/">Projects</a>
+          <a href="/about-me/">About</a>
+      </nav>
+  </header>
+
+  <article>
+  	<div class="post">
+	  	<div id="page">
+
+		    <article id="post-image-optimization-lossy-lossless-techniques" class="post wrapper">
+
+        <div class="media author">
+          <div class="img">
+            <a href="/about-me/">
+              <amp-img src="/assets/images/jmperez.jpg" class="avatar-img" alt="" height="53" width="53">
+            </a>
+          </div>
+          <div class="bd">
+            <address class="name" itemprop="author" itemscope itemtype="https://schema.org/Person"><a href="/about-me/" itemprop="name">José M. Pérez</a></address>
+            <meta class="post-data" itemprop="datePublished" content="2013-01-04T20:44:57.000Z">
+              January 04 2013
+            </meta>
+          </div>
+        </div>
+
+				<!-- entry title -->
+				<header class="entry-header">
+					
+					  <h1 class="article-title entry-title" itemprop="name">
+					    Image optimization: Lossy, lossless and other techniques
+					  </h1>
+					
+				</header>
+
+				<!-- entry content -->
+			    <div class="entry-content ecp">
+			  		<p>During last days I have come across interesting articles about images optimization. Images are currently the largest average payload in web sites, meaning a <a href="http://httparchive.org/interesting.php" target="_blank" rel="external">62%</a> of all the bytes. With the increasingly importance of responsive design, <a href="http://css-tricks.com/which-responsive-images-solution-should-you-use/" target="_blank" rel="external">responsive images</a> are becoming a challenge to face.</p><p>I have already talked about image optimization in my <a href="/techniques-optimize-web-sites/#images-optimization">list of optimization techniques</a> and my short <a href="/jpegoptim-optimize-jpg-page-speed/">post about using jpegoptim</a>. But recently I have read about highly compressed JPG to target high-res screens and progressive JPG images, and I thought it would worth sharing.</p><a id="more"></a><h2 id="Highly-compressed-JPG-images-and-high-resolution-screens"><a href="#Highly-compressed-JPG-images-and-high-resolution-screens" class="headerlink" title="Highly compressed JPG images and high resolution screens"></a>Highly compressed JPG images and high resolution screens</h2><p><a href="http://filamentgroup.com/lab/rwd_img_compression/" target="_blank" rel="external">Compressive Images</a> is a post by Filament Group where they show a way to target responsive images. Instead of using multiple copies of an image with different sizes, you can generate a large JPG image with a compression of 0 quality. That way, not only one single copy can be used to target different screen sizes and resolutions, but there are even large savings in file size comparing to normal 1:1 images.</p><p>I have prepared <a href="/demos/compressive-images/">a demo of the Compressive Images technique</a> where you can test your own images.</p><div class="callout"><strong>Info</strong>: Note that this technique might have a high impact on decoding + resizing, especially on mobile. Tim Kadlec explained it at Velocity SC 2015 in his <a href="https://www.youtube.com/watch?v=jP68rCjSSjM&t=10m56s" target="_blank" rel="external">Mobile Image Processing talk</a>.</div><h2 id="Progressive-JPEGs"><a href="#Progressive-JPEGs" class="headerlink" title="Progressive JPEGs"></a>Progressive JPEGs</h2><p>Thanks to <a href="http://calendar.perfplanet.com/2012/progressive-jpegs-a-new-best-practice/" target="_blank" rel="external">Progressive jpegs: a new best practice</a> I have learnt that progressive JPGs normally weight less than baseline ones. Not only that, but they make some browsers start rendering the image sooner, preventing showing a white chunk until the full image is downloaded. By using tools such as imageoptim, which runs jpegtran behind the scenes, you can make sure the smallest file is chosen.</p><p>That post also links to <a href="http://www.bookofspeed.com/chapter5.html" target="_blank" rel="external">Optimizing Images</a>, a chapter from Stoyan Stefanov’s <a href="http://www.bookofspeed.com/" target="_blank" rel="external">Book of Speed</a>. In that chapter, Stoyan compiles the main tools to achieve lossless compression of JPG, PNG and GIF images.</p><p>If you want to see progressive images in action, check <a href="http://www.patrickmeenan.com/progressive/view.php?img=http%3A%2F%2Fi2.cdn.turner.com%2Fcnn%2Fdam%2Fassets%2F121205093053-leweb-cyborg-c1-main.jpg" target="_blank" rel="external">this demo</a> made by <a href="https://twitter.com/patmeenan" target="_blank" rel="external">@patmeenan</a> that showing how a JPG is rendered in progressive and baseline mode, and the resulting image of every scan. You can even try with your own image.</p><h2 id="Lossy-techniques"><a href="#Lossy-techniques" class="headerlink" title="Lossy techniques"></a>Lossy techniques</h2><p>To end with, in <a href="http://calendar.perfplanet.com/2012/giving-your-images-an-extra-squeeze/" target="_blank" rel="external">Giving Your Images An Extra Squeeze</a> you can see how lossy compression tools can help go the extra mile and reduce even more the size of your images, while keeping quality. It is a nice read about tools such as pngquant and imgmin, as well as the WebP format.</p><h2 id="More-resources"><a href="#More-resources" class="headerlink" title="More resources"></a>More resources</h2><p>If you are interested in image optimization, I recommend you to have a look at <a href="http://addyosmani.com/blog/image-optimization-tools/" target="_blank" rel="external">Image Optimization Tools</a>, an article by Addy Osmani.</p>
+			  	</div>
+
+		  	</article>
+		</div>
+    <footer>
+        <section class="links">
+            <a href="https://twitter.com/jmperezperez">@jmperezperez</a> on Twitter · <a href="https://github.com/JMPerez">GitHub</a> · <a href="http://www.linkedin.com/in/jmperezperez">LinkedIn</a> · <a href="https://plus.google.com/107456024651797783420">Google+</a>
+        </section>
+    </footer>
+
+	</div>
+  </article>
+
+  </body>
+</html>

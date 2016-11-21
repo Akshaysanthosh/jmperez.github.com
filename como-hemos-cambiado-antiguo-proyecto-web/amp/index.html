@@ -1,0 +1,607 @@
+<!doctype html>
+<html ⚡>
+  <head>
+    <meta charset="utf-8">
+    <link rel="canonical" href="https://jmperezperez.com/como-hemos-cambiado-antiguo-proyecto-web/" >
+    <title>Cómo hemos cambiado - Un antiguo proyecto web - Web development, performance, and some other good practices.</title>
+    <meta name="viewport" content="width=device-width,minimum-scale=1,initial-scale=1">
+    <style amp-boilerplate>body{-webkit-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-moz-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-ms-animation:-amp-start 8s steps(1,end) 0s 1 normal both;animation:-amp-start 8s steps(1,end) 0s 1 normal both}@-webkit-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-moz-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-ms-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-o-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}</style>
+    <noscript><style amp-boilerplate>body{-webkit-animation:none;-moz-animation:none;-ms-animation:none;animation:none}</style></noscript>
+    
+    
+    
+    
+    <script async custom-element="amp-analytics" src="https://cdn.ampproject.org/v0/amp-analytics-0.1.js"></script>
+    
+
+    <script async src="https://cdn.ampproject.org/v0.js"></script>
+    <script type="application/ld+json">
+		{
+			"@context": "http://schema.org",
+			"@type": "BlogPosting",
+			"headline": "Cómo hemos cambiado - Un antiguo proyecto web",
+			
+			"description": "&lt;p&gt;Ayer, mi buen amigo &lt;a href=https://twitter.com/Aprezia&gt;Alberto Juan (@aprezia)&lt;/a&gt;, me enviaba &lt;a href=http://gtmetrix.com/reports/82.165.143.130/L2CqUhX8&gt;un link a un perfil de GTMetrix&lt;/a&gt;. Él sabe que me encanta la optimización web. Y yo le echaba un vistazo rápido a los números y pensaba que se podía mejorar bastante el Page Speed y YSlow de ese sitio. &lt;a href=/assets/images/posts/inmodomus.jpg&gt;&lt;img src=/assets/images/posts/inmodomus-300x276.jpg alt=&#34;Captura de pantalla del proyecto Inmodomus&#34;&gt;&lt;/a&gt;&lt;/p&gt;",
+			
+			"mainEntityOfPage":{
+			    "@type":"WebPage",
+			    "@id":"como-hemos-cambiado-antiguo-proyecto-web/"
+			},
+			"datePublished": "2013-02-13T06:30:50.000Z",
+			"dateModified": "2016-11-21T08:20:26.000Z",
+			
+			"image": {
+				"@type": "ImageObject",
+				"url": "/amp-dist/sample/sample-substituteTitleImage.png",
+				"width" : "1024",
+				"height" : "800"
+			},
+			
+			"author": {
+			    "@type": "Person",
+			    "name": "Jose M. Perez"
+			},
+			"publisher": {
+			    "@type": "Organization",
+			    "name": "JMPerez Blog"
+			    
+			    ,
+			    "logo": {
+			      "@type": "ImageObject",
+			      "url": "https://jmperezperez.com/amp-dist/logo.png",
+			      "width": 600,
+			      "height": 60
+			    }
+			    
+			}
+		}
+	</script>
+	
+	<style amp-custom>
+		/*--RESET--*/
+* {
+
+    -webkit-box-sizing: border-box;
+       -moz-box-sizing: border-box;
+            box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    border: none;
+    vertical-align: baseline;
+    font: inherit;
+}
+
+input, button {
+    background: none;
+
+    -webkit-appearance: none;
+       -moz-appearance: none;
+            appearance: none;
+}
+
+/*--BODY--*/
+
+body {
+    background: #fff;
+    color: #555;
+    font-family: Georgia, Times;
+    font-weight: 300;
+    font-style: normal;
+    font-size: 19px;
+    line-height: 1.725;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+@media(max-width: 800px) {
+    body {
+        font-size: 17px;
+    }
+}
+
+@media(max-width: 600px) {
+    body {
+        font-size: 15px;
+    }
+}
+
+h1, h2, h3, h4, h5 {
+    color: #212121;
+    font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+    font-weight: 600;
+    font-size: 1em;
+    line-height: 1.3;
+    margin-bottom: 1em;
+}
+
+#menu a, .button {
+
+    font-weight: 400;
+    font-size: 1em;
+}
+
+p, .post ul, .post ol, iframe, video, amp-video {
+    margin: 0;
+    margin-bottom: 1em;
+}
+
+a {
+    color: #2a7cb2;
+    text-decoration: none;
+    font-weight: inherit;
+
+    -webkit-transition: color .15s ease-out, border-bottom-color .15s ease-out;
+       -moz-transition: color .15s ease-out, border-bottom-color .15s ease-out;
+         -o-transition: color .15s ease-out, border-bottom-color .15s ease-out;
+            transition: color .15s ease-out, border-bottom-color .15s ease-out;
+}
+
+a:hover {
+    color: #2a7cb2;
+}
+
+p a {
+    border-bottom: 1px solid #eee;
+}
+
+p a:hover {
+    border-bottom-color: #212121;
+}
+
+strong {
+    font-weight: 400;
+}
+
+em {
+    font-style: italic;
+}
+
+h1 {font-size: 1.7em;}
+h2 {
+    color: #444;
+    font-size: 1.6em;
+    font-weight: 400;
+}
+h3 {
+    color: #666;
+    font-size: 1.4em;
+    font-weight: 400;
+}
+h4 {font-size: 1.18em;}
+h5 {font-size: 1em;}
+
+
+p + h2, p + h3, p + h4, p + h5 {
+    padding-top: 1em;
+}
+
+a h1, a h2, a h3, a h4, a h5 {
+    -webkit-transition: color .15s ease-out;
+       -moz-transition: color .15s ease-out;
+         -o-transition: color .15s ease-out;
+            transition: color .15s ease-out;
+}
+
+a:hover h1, a:hover h2, a:hover h3, a:hover h4, a:hover h5 {
+    color: #3498db;
+}
+
+.quote {
+    margin: 0 0 15px 0;
+}
+
+blockquote {
+    margin: 0 0 15px 0;
+    padding-left: 20px;
+    border-left: 2px solid #ccc;
+    font-style: italic;
+}
+
+ul, ol {
+    margin: 0 0 15px 0;
+    padding-left: 25px;
+}
+
+ul {list-style: square;}
+ol {list-style: decimal;}
+
+sup {vertical-align: super;}
+sub {vertical-align: sub;}
+
+hr {
+    display: block;
+    clear: both;
+    margin: 30px auto;
+    width: 50%;
+    height: 2px;
+    background: #eee;
+    color: #eee;
+}
+
+pre, code {
+/*    overflow-x: auto;
+    margin: 0 0 5% 0;
+    padding-right: 0.5em;
+    padding-left: 0.5em;
+    border: 1px solid #ddd;
+    border-radius: 3px;
+    color: #333;
+    font: 400 15px/24px monospace;*/
+    overflow-x: auto;
+    color: #333;
+    font-family: Courier, Menlo, Monaco;
+    letter-spacing: 0px;
+    font-size: 0.9em;
+}
+
+pre code {
+    padding-left: 0;
+    border: none;
+    font-size: 90%;
+}
+
+pre {
+    padding: 15px 20px;
+}
+
+code {
+    margin: 0;
+}
+
+/*--CLEARFIXES--*/
+
+.post::after {
+    display: block;
+    clear: both;
+    content: '';
+}
+
+/*--HEADER--*/
+
+body > header {
+    font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+    position: relative;
+    overflow: hidden;
+    padding: 1em;
+    width: 100%;
+    border-bottom: 2px solid #eee;
+    text-align: center;
+}
+
+/*--MENU--*/
+
+#menu {
+    display: inline-block;
+    margin: 1px 0;
+}
+
+#menu a {
+    margin-left: 15px;
+    color: #666;
+    text-transform: uppercase;
+    font-size: 14px;
+    padding: 20px 10px;
+}
+
+#menu a:hover {
+    color: #212121;
+}
+#menu a.current {
+    color: #212121;
+}
+
+/*--PAGE--*/
+
+#page {
+    position: relative;
+    margin: 0 auto;
+    padding: 3em 2em;
+    max-width: 40em;
+}
+
+/*--WRAPPER--*/
+
+.wrapper {
+    padding: 7.5% 0;
+    border-top: 2px solid #eee;
+}
+
+.wrapper:first-child {
+    padding-top: 0;
+    border-top: none;
+}
+
+/*--POSTS--*/
+
+.post {
+    display: block;
+    width: 100%;
+}
+
+.post div[itemprop=articleBody] > p:first-child {
+    color: #333;
+}
+
+.post li {
+    margin-bottom: 0.5em;
+}
+
+.post p img {
+    display: block;
+    margin: 5% auto;
+    max-width: 100%;
+    border: 1px solid #eee;
+}
+
+.post .svg-container {
+    text-align: center;
+    margin-bottom: 5%;
+    max-width: 100%;
+}
+
+video {
+  height: auto;
+  max-width: 100%;
+}
+
+.post .svg-container object {
+    width: 100%;
+}
+
+.tags {
+    font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+    font-size: 0.9em;
+}
+
+.tag-list {
+    padding: 0;
+    display: inline-block;
+}
+
+.tag-list li {
+    display: inline-block;
+}
+
+.tag-list li:after {
+    content: ', ';
+}
+
+.tag-list li:last-child:after {
+    content: '';
+}
+
+
+/*--PAGINATION--*/
+
+.pagination {
+    text-align: center;
+}
+
+.pagination a {
+    min-width: 30px;
+    max-height: 30px;
+    text-align: center;
+}
+
+/*--FOOTER--*/
+
+footer {
+    padding: 2em;
+    background: rgba(0, 0, 0, 0.05);
+    text-align: center;
+}
+
+/*--BUTTONS--*/
+
+.button {
+    display: inline-block;
+    padding: 10px 20px;
+    border-radius: 20px;
+    border: 1px solid #555;
+    background-color: #fff;
+    color: #555;
+    font-size: 13px;
+    line-height: 10px;
+
+    -webkit-transition: background-color .15s ease-out;
+       -moz-transition: background-color .15s ease-out;
+         -o-transition: background-color .15s ease-out;
+            transition: background-color .15s ease-out;
+}
+
+.button:hover {
+    background-color: #3498db;
+    color: #fff;
+    border-color: transparent;
+}
+
+.button.inactive {
+    background-color: #ccc;
+    color: #fff;
+}
+
+/*--404--*/
+.search-goog input {
+    padding: 10px;
+    border: 2px solid #ddd;
+}
+
+.search-goog input[type=submit] {
+    background-color: #ddd;
+    cursor: pointer;
+}
+
+@media only screen and (max-width: 768px) {
+
+    /*--PAGE--*/
+
+    #page, .wrapper {
+        margin: 0;
+        max-width: 100%;
+        width: 100%;
+        padding: 1.5em;
+    }
+
+    /*--WRAPPER--*/
+
+    .wrapper {
+        padding: 10% 0;
+    }
+
+    .wraper::after {
+        display: block;
+        clear: both;
+        content: '';
+    }
+
+    /*--POSTS--*/
+
+    .post {
+        margin: 0 auto;
+        max-width: 640px;
+    }
+
+}
+
+/*--ACCESSIBILITY--*/
+.outscreen
+{
+    position: absolute;
+    left: -1000px;
+    top: auto;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+}
+
+/*--CALLOUT--*/
+.callout {
+    font-size: 90%;
+    padding: 20px;
+    margin: 20px 0;
+    border: 1px solid #eee;
+    border-left-width: 5px;
+    border-left-color: #777;
+    border-radius: 3px;
+}
+
+.author {
+    font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+    font-size: 0.8em;
+    margin-bottom: 2em;
+}
+
+.author .name {
+    line-height: 1.5;
+    padding-top: 0.35em;
+}
+
+.media, .bd {
+    overflow: hidden;
+    _overflow: visible;
+    
+}
+
+.media .img {
+    float: left;
+}
+
+.avatar-img {
+    border-radius: 100%;
+    height: 3.5em;
+    width: 3.5em;
+    margin-right: 0.5em;
+}
+
+.highlight {
+    border: 1px solid #eee;
+    margin-bottom: 1em;
+}
+
+/* SYNTAX HIGHLIGHTING */
+
+.highlight {
+  overflow-x: auto;
+}
+
+.code{font-family: Courier,Menlo,Monaco;letter-spacing: 0; font-size: .9em;display:block;background:white;color:#333333;overflow-x:auto}.code .comment,.code .meta{color:#969896}.code .string,.code .variable,.code .template-variable,.code .strong,.code .emphasis,.code .quote{color:#df5000}.code .keyword,.code .selector-tag,.code .type{color:#a71d5d}.code .literal,.code .symbol,.code .bullet,.code .attribute{color:#0086b3}.code .section,.code .name{color:#63a35c}.code .tag{color:#333333}.code .title,.code .attr,.code .selector-id,.code .selector-class,.code .selector-attr,.code .selector-pseudo{color:#795da3}.code .addition{color:#55a532;background-color:#eaffea}.code .deletion{color:#bd2c00;background-color:#ffecec}.code .link{text-decoration:underline}
+
+	</style>
+	
+  </head>
+  <body>
+
+  	<!-- google analytics -->
+  	
+  	<amp-analytics type="googleanalytics" id="google-analytics">
+		<script type="application/json">
+		{
+		  "vars": {
+		    "account": "UA-39254352-1"
+		  },
+		  "triggers": {
+		    "trackPageview": {
+		      "on": "visible",
+		      "request": "pageview"
+		    }
+		  }
+		}
+		</script>
+	</amp-analytics>
+	
+
+  <header>
+      <nav id="menu">
+          <a href="/">JMPerez Blog</a>
+          <a href="/projects/">Projects</a>
+          <a href="/about-me/">About</a>
+      </nav>
+  </header>
+
+  <article>
+  	<div class="post">
+	  	<div id="page">
+
+		    <article id="post-como-hemos-cambiado-antiguo-proyecto-web" class="post wrapper">
+
+        <div class="media author">
+          <div class="img">
+            <a href="/about-me/">
+              <amp-img src="/assets/images/jmperez.jpg" class="avatar-img" alt="" height="53" width="53">
+            </a>
+          </div>
+          <div class="bd">
+            <address class="name" itemprop="author" itemscope itemtype="https://schema.org/Person"><a href="/about-me/" itemprop="name">José M. Pérez</a></address>
+            <meta class="post-data" itemprop="datePublished" content="2013-02-13T06:30:50.000Z">
+              February 13 2013
+            </meta>
+          </div>
+        </div>
+
+				<!-- entry title -->
+				<header class="entry-header">
+					
+					  <h1 class="article-title entry-title" itemprop="name">
+					    Cómo hemos cambiado - Un antiguo proyecto web
+					  </h1>
+					
+				</header>
+
+				<!-- entry content -->
+			    <div class="entry-content ecp">
+			  		<p>Ayer, mi buen amigo <a href="https://twitter.com/Aprezia" target="_blank" rel="external">Alberto Juan (@aprezia)</a>, me enviaba <a href="http://gtmetrix.com/reports/82.165.143.130/L2CqUhX8" target="_blank" rel="external">un link a un perfil de GTMetrix</a>. Él sabe que me encanta la optimización web. Y yo le echaba un vistazo rápido a los números y pensaba que se podía mejorar bastante el Page Speed y YSlow de ese sitio. <a href="/assets/images/posts/inmodomus.jpg"><p><amp-img src="/assets/images/posts/inmodomus-300x276.jpg" width="300" height="276" layout="responsive"></amp-img></p></a></p><a id="more"></a><p>Y en ningún momento me había dado cuenta de que <a href="http://82.165.143.130:2005/publico/" target="_blank" rel="external">ese sitio web, Inmodomus</a>, lo habíamos implementado 8 años atrás Alberto y yo para una práctica en la asignatura <a href="http://gplsi.dlsi.ua.es/asignaturas/pi/" target="_blank" rel="external">Programación en Internet de la Universidad de Alicante</a>. Y hasta teníamos una buena <a href="http://82.165.143.130:2005/documentacion/" target="_blank" rel="external">documentación web</a>.</p><p>Hoy los desarrolladores web estamos inmersos en un montón de cambios continuos. Todos los días aparecen tecnologías, herramientas y técnicas que vienen a mejorar el desarrollo. Y uno pocas veces echa la vista atrás y se da cuenta de cómo se hacían las cosas antes. Y cómo las hacía uno mismo.</p><p>Ahora miro el rendimiento de los sitios web, juego cambiando el tamaño de la ventana y esperando que la página sea Responsive y se pueda ver bien en cualquier tamaño de pantalla. Por aquel entonces estábamos más preocupados de la compatibilidad con IE6, a nivel funcional (poco JS, Vanilla JS) y a nivel estético (bordes redondeados con GIFs). Y nadie había escuchado nada de desarrollar web para dispositivos móviles.</p><p>En cuanto al JS, un fichero llamado functions.js. Y yo mismo me acuerdo de este tweet que escribí hace poco:</p><p><blockquote class="twitter-tweet" lang="es"><p>If you have a JS file called “functions.js”,you’re doing it wrong.</p>&mdash; José Manuel Pérez (@jmperezperez) <a href="https://twitter.com/jmperezperez/status/269063474808770560" target="_blank" rel="external">15 de noviembre de 2012</a></blockquote></p><p>En este tipo de proyectos se evitaba usar librerías y frameworks para que aprendiéramos el código desde abajo, y cómo los patrones de diseño emergían como soluciones naturales a problemas recurrentes. Por entonces el JS que se usaba era básico, muy básico. En este caso, un fichero con unas cuantas funciones globales que añadían chequeos de valores del lado del cliente (los mismos que se aplicaban en el lado de servidor con PHP / ASP), logrando un Progressive Enhancement. Un bonito término que no aprendí hasta tiempo después cuando a la gente le empezaba a preocupar el SEO, los navegadores antiguos o con JS deshabilitado, y el rendimiento web.</p><p>Cuando trabajaba en <a href="http://tuenti.com" target="_blank" rel="external">Tuenti</a> me preguntaba que estaba haciendo yo cuando Tuenti empezó. Y aquí en <a href="http://spotify.com" target="_blank" rel="external">Spotify</a>, lo mismo. Ahora veo lo que estaba haciendo, y creo que viendo algunas webs actuales, el proyecto se hizo con mucha cabeza y buen resultado, teniendo en cuenta los conocimientos web allá por 2005.</p><p>Y también me resulta poco menos que curioso que la práctica asignada fuera sobre implementar un portal inmobiliario. Creo que refleja perfectamente las aspiraciones y dónde estaba el negocio por aquel entonces. Espero no equivocarme pensando que ahora habrán cambiado la temática del proyecto.</p><p>A veces es bueno parar un poco y echar la vista atrás. Ver de dónde veníamos y las cosas increíbles que se pueden hacer hoy en día en la web.</p>
+			  	</div>
+
+		  	</article>
+		</div>
+    <footer>
+        <section class="links">
+            <a href="https://twitter.com/jmperezperez">@jmperezperez</a> on Twitter · <a href="https://github.com/JMPerez">GitHub</a> · <a href="http://www.linkedin.com/in/jmperezperez">LinkedIn</a> · <a href="https://plus.google.com/107456024651797783420">Google+</a>
+        </section>
+    </footer>
+
+	</div>
+  </article>
+
+  </body>
+</html>

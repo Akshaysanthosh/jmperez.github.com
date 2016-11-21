@@ -1,0 +1,607 @@
+<!doctype html>
+<html ⚡>
+  <head>
+    <meta charset="utf-8">
+    <link rel="canonical" href="https://jmperezperez.com/medium-image-progressive-loading-placeholder/" >
+    <title>How Medium does progressive image loading - Web development, performance, and some other good practices.</title>
+    <meta name="viewport" content="width=device-width,minimum-scale=1,initial-scale=1">
+    <style amp-boilerplate>body{-webkit-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-moz-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-ms-animation:-amp-start 8s steps(1,end) 0s 1 normal both;animation:-amp-start 8s steps(1,end) 0s 1 normal both}@-webkit-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-moz-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-ms-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-o-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}</style>
+    <noscript><style amp-boilerplate>body{-webkit-animation:none;-moz-animation:none;-ms-animation:none;animation:none}</style></noscript>
+    
+    
+    
+    
+    <script async custom-element="amp-analytics" src="https://cdn.ampproject.org/v0/amp-analytics-0.1.js"></script>
+    
+
+    <script async src="https://cdn.ampproject.org/v0.js"></script>
+    <script type="application/ld+json">
+		{
+			"@context": "http://schema.org",
+			"@type": "BlogPosting",
+			"headline": "How Medium does progressive image loading",
+			
+			"description": "This post explains how Medium renders an image placeholder using low-res thumbnails and canvas",
+			
+			"mainEntityOfPage":{
+			    "@type":"WebPage",
+			    "@id":"medium-image-progressive-loading-placeholder/"
+			},
+			"datePublished": "2015-10-18T20:05:00.000Z",
+			"dateModified": "2016-11-21T08:16:38.000Z",
+			
+			"image": {
+				"@type": "ImageObject",
+				"url": "/amp-dist/sample/sample-substituteTitleImage.png",
+				"width" : "1024",
+				"height" : "800"
+			},
+			
+			"author": {
+			    "@type": "Person",
+			    "name": "Jose M. Perez"
+			},
+			"publisher": {
+			    "@type": "Organization",
+			    "name": "JMPerez Blog"
+			    
+			    ,
+			    "logo": {
+			      "@type": "ImageObject",
+			      "url": "https://jmperezperez.com/amp-dist/logo.png",
+			      "width": 600,
+			      "height": 60
+			    }
+			    
+			}
+		}
+	</script>
+	
+	<style amp-custom>
+		/*--RESET--*/
+* {
+
+    -webkit-box-sizing: border-box;
+       -moz-box-sizing: border-box;
+            box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    border: none;
+    vertical-align: baseline;
+    font: inherit;
+}
+
+input, button {
+    background: none;
+
+    -webkit-appearance: none;
+       -moz-appearance: none;
+            appearance: none;
+}
+
+/*--BODY--*/
+
+body {
+    background: #fff;
+    color: #555;
+    font-family: Georgia, Times;
+    font-weight: 300;
+    font-style: normal;
+    font-size: 19px;
+    line-height: 1.725;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+@media(max-width: 800px) {
+    body {
+        font-size: 17px;
+    }
+}
+
+@media(max-width: 600px) {
+    body {
+        font-size: 15px;
+    }
+}
+
+h1, h2, h3, h4, h5 {
+    color: #212121;
+    font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+    font-weight: 600;
+    font-size: 1em;
+    line-height: 1.3;
+    margin-bottom: 1em;
+}
+
+#menu a, .button {
+
+    font-weight: 400;
+    font-size: 1em;
+}
+
+p, .post ul, .post ol, iframe, video, amp-video {
+    margin: 0;
+    margin-bottom: 1em;
+}
+
+a {
+    color: #2a7cb2;
+    text-decoration: none;
+    font-weight: inherit;
+
+    -webkit-transition: color .15s ease-out, border-bottom-color .15s ease-out;
+       -moz-transition: color .15s ease-out, border-bottom-color .15s ease-out;
+         -o-transition: color .15s ease-out, border-bottom-color .15s ease-out;
+            transition: color .15s ease-out, border-bottom-color .15s ease-out;
+}
+
+a:hover {
+    color: #2a7cb2;
+}
+
+p a {
+    border-bottom: 1px solid #eee;
+}
+
+p a:hover {
+    border-bottom-color: #212121;
+}
+
+strong {
+    font-weight: 400;
+}
+
+em {
+    font-style: italic;
+}
+
+h1 {font-size: 1.7em;}
+h2 {
+    color: #444;
+    font-size: 1.6em;
+    font-weight: 400;
+}
+h3 {
+    color: #666;
+    font-size: 1.4em;
+    font-weight: 400;
+}
+h4 {font-size: 1.18em;}
+h5 {font-size: 1em;}
+
+
+p + h2, p + h3, p + h4, p + h5 {
+    padding-top: 1em;
+}
+
+a h1, a h2, a h3, a h4, a h5 {
+    -webkit-transition: color .15s ease-out;
+       -moz-transition: color .15s ease-out;
+         -o-transition: color .15s ease-out;
+            transition: color .15s ease-out;
+}
+
+a:hover h1, a:hover h2, a:hover h3, a:hover h4, a:hover h5 {
+    color: #3498db;
+}
+
+.quote {
+    margin: 0 0 15px 0;
+}
+
+blockquote {
+    margin: 0 0 15px 0;
+    padding-left: 20px;
+    border-left: 2px solid #ccc;
+    font-style: italic;
+}
+
+ul, ol {
+    margin: 0 0 15px 0;
+    padding-left: 25px;
+}
+
+ul {list-style: square;}
+ol {list-style: decimal;}
+
+sup {vertical-align: super;}
+sub {vertical-align: sub;}
+
+hr {
+    display: block;
+    clear: both;
+    margin: 30px auto;
+    width: 50%;
+    height: 2px;
+    background: #eee;
+    color: #eee;
+}
+
+pre, code {
+/*    overflow-x: auto;
+    margin: 0 0 5% 0;
+    padding-right: 0.5em;
+    padding-left: 0.5em;
+    border: 1px solid #ddd;
+    border-radius: 3px;
+    color: #333;
+    font: 400 15px/24px monospace;*/
+    overflow-x: auto;
+    color: #333;
+    font-family: Courier, Menlo, Monaco;
+    letter-spacing: 0px;
+    font-size: 0.9em;
+}
+
+pre code {
+    padding-left: 0;
+    border: none;
+    font-size: 90%;
+}
+
+pre {
+    padding: 15px 20px;
+}
+
+code {
+    margin: 0;
+}
+
+/*--CLEARFIXES--*/
+
+.post::after {
+    display: block;
+    clear: both;
+    content: '';
+}
+
+/*--HEADER--*/
+
+body > header {
+    font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+    position: relative;
+    overflow: hidden;
+    padding: 1em;
+    width: 100%;
+    border-bottom: 2px solid #eee;
+    text-align: center;
+}
+
+/*--MENU--*/
+
+#menu {
+    display: inline-block;
+    margin: 1px 0;
+}
+
+#menu a {
+    margin-left: 15px;
+    color: #666;
+    text-transform: uppercase;
+    font-size: 14px;
+    padding: 20px 10px;
+}
+
+#menu a:hover {
+    color: #212121;
+}
+#menu a.current {
+    color: #212121;
+}
+
+/*--PAGE--*/
+
+#page {
+    position: relative;
+    margin: 0 auto;
+    padding: 3em 2em;
+    max-width: 40em;
+}
+
+/*--WRAPPER--*/
+
+.wrapper {
+    padding: 7.5% 0;
+    border-top: 2px solid #eee;
+}
+
+.wrapper:first-child {
+    padding-top: 0;
+    border-top: none;
+}
+
+/*--POSTS--*/
+
+.post {
+    display: block;
+    width: 100%;
+}
+
+.post div[itemprop=articleBody] > p:first-child {
+    color: #333;
+}
+
+.post li {
+    margin-bottom: 0.5em;
+}
+
+.post p img {
+    display: block;
+    margin: 5% auto;
+    max-width: 100%;
+    border: 1px solid #eee;
+}
+
+.post .svg-container {
+    text-align: center;
+    margin-bottom: 5%;
+    max-width: 100%;
+}
+
+video {
+  height: auto;
+  max-width: 100%;
+}
+
+.post .svg-container object {
+    width: 100%;
+}
+
+.tags {
+    font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+    font-size: 0.9em;
+}
+
+.tag-list {
+    padding: 0;
+    display: inline-block;
+}
+
+.tag-list li {
+    display: inline-block;
+}
+
+.tag-list li:after {
+    content: ', ';
+}
+
+.tag-list li:last-child:after {
+    content: '';
+}
+
+
+/*--PAGINATION--*/
+
+.pagination {
+    text-align: center;
+}
+
+.pagination a {
+    min-width: 30px;
+    max-height: 30px;
+    text-align: center;
+}
+
+/*--FOOTER--*/
+
+footer {
+    padding: 2em;
+    background: rgba(0, 0, 0, 0.05);
+    text-align: center;
+}
+
+/*--BUTTONS--*/
+
+.button {
+    display: inline-block;
+    padding: 10px 20px;
+    border-radius: 20px;
+    border: 1px solid #555;
+    background-color: #fff;
+    color: #555;
+    font-size: 13px;
+    line-height: 10px;
+
+    -webkit-transition: background-color .15s ease-out;
+       -moz-transition: background-color .15s ease-out;
+         -o-transition: background-color .15s ease-out;
+            transition: background-color .15s ease-out;
+}
+
+.button:hover {
+    background-color: #3498db;
+    color: #fff;
+    border-color: transparent;
+}
+
+.button.inactive {
+    background-color: #ccc;
+    color: #fff;
+}
+
+/*--404--*/
+.search-goog input {
+    padding: 10px;
+    border: 2px solid #ddd;
+}
+
+.search-goog input[type=submit] {
+    background-color: #ddd;
+    cursor: pointer;
+}
+
+@media only screen and (max-width: 768px) {
+
+    /*--PAGE--*/
+
+    #page, .wrapper {
+        margin: 0;
+        max-width: 100%;
+        width: 100%;
+        padding: 1.5em;
+    }
+
+    /*--WRAPPER--*/
+
+    .wrapper {
+        padding: 10% 0;
+    }
+
+    .wraper::after {
+        display: block;
+        clear: both;
+        content: '';
+    }
+
+    /*--POSTS--*/
+
+    .post {
+        margin: 0 auto;
+        max-width: 640px;
+    }
+
+}
+
+/*--ACCESSIBILITY--*/
+.outscreen
+{
+    position: absolute;
+    left: -1000px;
+    top: auto;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+}
+
+/*--CALLOUT--*/
+.callout {
+    font-size: 90%;
+    padding: 20px;
+    margin: 20px 0;
+    border: 1px solid #eee;
+    border-left-width: 5px;
+    border-left-color: #777;
+    border-radius: 3px;
+}
+
+.author {
+    font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+    font-size: 0.8em;
+    margin-bottom: 2em;
+}
+
+.author .name {
+    line-height: 1.5;
+    padding-top: 0.35em;
+}
+
+.media, .bd {
+    overflow: hidden;
+    _overflow: visible;
+    
+}
+
+.media .img {
+    float: left;
+}
+
+.avatar-img {
+    border-radius: 100%;
+    height: 3.5em;
+    width: 3.5em;
+    margin-right: 0.5em;
+}
+
+.highlight {
+    border: 1px solid #eee;
+    margin-bottom: 1em;
+}
+
+/* SYNTAX HIGHLIGHTING */
+
+.highlight {
+  overflow-x: auto;
+}
+
+.code{font-family: Courier,Menlo,Monaco;letter-spacing: 0; font-size: .9em;display:block;background:white;color:#333333;overflow-x:auto}.code .comment,.code .meta{color:#969896}.code .string,.code .variable,.code .template-variable,.code .strong,.code .emphasis,.code .quote{color:#df5000}.code .keyword,.code .selector-tag,.code .type{color:#a71d5d}.code .literal,.code .symbol,.code .bullet,.code .attribute{color:#0086b3}.code .section,.code .name{color:#63a35c}.code .tag{color:#333333}.code .title,.code .attr,.code .selector-id,.code .selector-class,.code .selector-attr,.code .selector-pseudo{color:#795da3}.code .addition{color:#55a532;background-color:#eaffea}.code .deletion{color:#bd2c00;background-color:#ffecec}.code .link{text-decoration:underline}
+#hexo-amp-id-3{max-width:100%}#hexo-amp-id-4{padding:1em;background-color:#fdf6ea;margin:2rem 0}
+	</style>
+	
+  </head>
+  <body>
+
+  	<!-- google analytics -->
+  	
+  	<amp-analytics type="googleanalytics" id="google-analytics">
+		<script type="application/json">
+		{
+		  "vars": {
+		    "account": "UA-39254352-1"
+		  },
+		  "triggers": {
+		    "trackPageview": {
+		      "on": "visible",
+		      "request": "pageview"
+		    }
+		  }
+		}
+		</script>
+	</amp-analytics>
+	
+
+  <header>
+      <nav id="menu">
+          <a href="/">JMPerez Blog</a>
+          <a href="/projects/">Projects</a>
+          <a href="/about-me/">About</a>
+      </nav>
+  </header>
+
+  <article>
+  	<div class="post">
+	  	<div id="page">
+
+		    <article id="post-medium-image-progressive-loading-placeholder" class="post wrapper">
+
+        <div class="media author">
+          <div class="img">
+            <a href="/about-me/">
+              <amp-img src="/assets/images/jmperez.jpg" class="avatar-img" alt="" height="53" width="53">
+            </a>
+          </div>
+          <div class="bd">
+            <address class="name" itemprop="author" itemscope itemtype="https://schema.org/Person"><a href="/about-me/" itemprop="name">José M. Pérez</a></address>
+            <meta class="post-data" itemprop="datePublished" content="2015-10-18T20:05:00.000Z">
+              October 18 2015
+            </meta>
+          </div>
+        </div>
+
+				<!-- entry title -->
+				<header class="entry-header">
+					
+					  <h1 class="article-title entry-title" itemprop="name">
+					    How Medium does progressive image loading
+					  </h1>
+					
+				</header>
+
+				<!-- entry content -->
+			    <div class="entry-content ecp">
+			  		<p>Recently, I was browsing a post on Medium and I spotted a nice image loading effect. First, load a small blurry image, and then transition to the large image. I found it pretty neat and wanted to dissect how it was done.</p><p></p><p><amp-img src="/assets/images/posts/medium-placeholder.png" width="476" height="608" layout="responsive"></amp-img></p><p></p><a id="more"></a><h2 id="Medium&#x2019;s-technique"><a href="#Medium&#x2019;s-technique" class="headerlink" title="Medium&#x2019;s technique"></a>Medium&#x2019;s technique</h2><p>To see how image loading works in Medium, it is best to see a demo:</p><amp-video id="hexo-amp-id-3"  controls   width="854" height="480" layout="responsive"><source src="/assets/images/posts/medium-progressive-loading.mp4" type="video/mp4"></amp-video><p>I have performed a <a href="http://www.webpagetest.org/video/compare.php?tests=151018_XD_KDF-r:1-c:0" target="_blank" rel="external">WebPageTest test</a> against <a href="https://medium.com/backchannel/exclusive-why-apple-is-still-sweating-the-details-on-imac-531a95e50c91" target="_blank" rel="external">this page on Medium</a> where you can see how it loads too. And if you want to see it by yourself, open Medium&#x2019;s post in your browser, disable the cache and throttle the response so it takes longer to fetch the images and you can see the effect.</p><p>Here is what is going on:</p><ol><li><p><strong>Render a div where the image will be displayed</strong>. Medium uses a <code>&lt;div/&gt;</code> with a <code>padding-bottom</code> set to a percentage, which corresponds to the aspect ratio of the image. Thus, they prevent reflows while the images are loaded since everything is rendered in its final position. This has also been referred to as <a href="http://daverupert.com/2015/12/intrinsic-placeholders-with-picture/" target="_blank" rel="external">intrinsic placeholders</a>.</p></li><li><p><strong>Load a tiny version of the image</strong>. At the moment, they seem to be requesting small JPEG thumbnails with a very low quality (e.g. 20%). The markup for this small image is returned in the initial HTML as an <code>&lt;img/&gt;</code>, so the browser starts fetching them right away.</p></li><li><p>Once the image is loaded, <strong>it is drawn in a <code>&lt;canvas/&gt;</code></strong>. Then, the image data is taken and passed through a custom <code>blur()</code> function You can see it, a bit scrambled, in the <code>main-base.bundle</code> JS file. This function is similar, though not identical, to <a href="http://www.quasimondo.com/StackBlurForCanvas/StackBlurDemo.html" target="_blank" rel="external">StackBlur</a>&#x2018;s blur function. At the same time, <strong>the main image is requested</strong>.</p></li><li><p>Once the main image is loaded, <strong>it is shown</strong> and the <code>canvas</code> is hidden.</p></li></ol><p>All the transitions are quite smooth, thanks to the CSS animations applied.</p><h2 id="Markup"><a href="#Markup" class="headerlink" title="Markup"></a>Markup</h2><p>A bird&#x2019;s eye view of the markup for an image:</p><figure class="highlight html"><table><tr><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">figure</span>&gt;</span></div><div class="line">  <span class="tag">&lt;<span class="name">div</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">div</span>/&gt;</span> <span class="comment">&lt;!-- this div keeps the aspect ratio so the placeholder doesn&apos;t collapse --&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">img</span>/&gt;</span> <span class="comment">&lt;!-- this is a tiny image with a resolution of e.g. ~27x17 and low quality --&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">canvas</span>/&gt;</span> <span class="comment">&lt;!-- takes the above image and applies a blur filter --&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">img</span>/&gt;</span> <span class="comment">&lt;!-- the large image to be displayed --&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">noscript</span>/&gt;</span> <span class="comment">&lt;!-- fallback for no JS --&gt;</span></div><div class="line">  <span class="tag">&lt;/<span class="name">div</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">figure</span>&gt;</span></div></pre></td></tr></table></figure><p>And a concrete example, so you see what goes in those tags:</p><figure class="highlight html"><table><tr><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">figure</span> <span class="attr">name</span>=<span class="string">&quot;7012&quot;</span> <span class="attr">id</span>=<span class="string">&quot;7012&quot;</span> <span class="attr">class</span>=<span class="string">&quot;graf--figure graf--layoutFillWidth graf-after--h4&quot;</span>&gt;</span></div><div class="line">  <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;aspectRatioPlaceholder is-locked&quot;</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;aspect-ratio-fill&quot;</span> <span class="attr">style</span>=<span class="string">&quot;padding-bottom: 66.7%;&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;progressiveMedia js-progressiveMedia graf-image is-canvasLoaded is-imageLoaded&quot;</span> <span class="attr">data-image-id</span>=<span class="string">&quot;1*sg-uLNm73whmdOgKlrQdZA.jpeg&quot;</span> <span class="attr">data-width</span>=<span class="string">&quot;2000&quot;</span> <span class="attr">data-height</span>=<span class="string">&quot;1333&quot;</span> <span class="attr">data-scroll</span>=<span class="string">&quot;native&quot;</span>&gt;</span></div><div class="line">      <span class="tag">&lt;<span class="name">img</span> <span class="attr">src</span>=<span class="string">&quot;https://cdn-images-1.medium.com/freeze/max/27/1*sg-uLNm73whmdOgKlrQdZA.jpeg?q=20&quot;</span> <span class="attr">crossorigin</span>=<span class="string">&quot;anonymous&quot;</span> <span class="attr">class</span>=<span class="string">&quot;progressiveMedia-thumbnail js-progressiveMedia-thumbnail&quot;</span>&gt;</span></div><div class="line">        <span class="tag">&lt;<span class="name">canvas</span> <span class="attr">class</span>=<span class="string">&quot;progressiveMedia-canvas js-progressiveMedia-canvas&quot;</span> <span class="attr">width</span>=<span class="string">&quot;75&quot;</span> <span class="attr">height</span>=<span class="string">&quot;47&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">canvas</span>&gt;</span></div><div class="line">        <span class="tag">&lt;<span class="name">img</span> <span class="attr">class</span>=<span class="string">&quot;progressiveMedia-image js-progressiveMedia-image __web-inspector-hide-shortcut__&quot;</span> <span class="attr">data-src</span>=<span class="string">&quot;https://cdn-images-1.medium.com/max/1800/1*sg-uLNm73whmdOgKlrQdZA.jpeg&quot;</span> <span class="attr">src</span>=<span class="string">&quot;https://cdn-images-1.medium.com/max/1800/1*sg-uLNm73whmdOgKlrQdZA.jpeg&quot;</span>&gt;</span></div><div class="line">        <span class="tag">&lt;<span class="name">noscript</span> <span class="attr">class</span>=<span class="string">&quot;js-progressiveMedia-inner&quot;</span>&gt;</span>&amp;lt;img class=&quot;progressiveMedia-noscript js-progressiveMedia-inner&quot; src=&quot;https://cdn-images-1.medium.com/max/1800/1*sg-uLNm73whmdOgKlrQdZA.jpeg&quot;&amp;gt;<span class="tag">&lt;/<span class="name">noscript</span>&gt;</span></div><div class="line">    <span class="tag">&lt;/<span class="name">div</span>&gt;</span></div><div class="line">  <span class="tag">&lt;/<span class="name">div</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">figure</span>&gt;</span></div></pre></td></tr></table></figure><p><em>Note that the actual image sizes requested depend on the device.</em></p><h2 id="An-attempt-to-reproduce-the-effect"><a href="#An-attempt-to-reproduce-the-effect" class="headerlink" title="An attempt to reproduce the effect"></a>An attempt to reproduce the effect</h2><p>I have prepared <a href="http://codepen.io/jmperez/pen/yYjPER" target="_blank" rel="external">this CodePen</a> where I have implemented the same effect, though using CSS filters for the blur instead of a canvas (see below more info about this variant).</p><p>Here is a demo (click &#x2018;Run Pen&#x2019; to run it):</p><p data-height="403" data-theme-id="0" data-slug-hash="yYjPER" data-default-tab="result" data-user="jmperez" class="codepen" data-preview="true">See the Pen <a href="http://codepen.io/jmperez/pen/yYjPER/" target="_blank" rel="external">Medium loading image effect reproduced</a> by Jos&#xE9; Manuel P&#xE9;rez (<a href="http://codepen.io/jmperez" target="_blank" rel="external">@jmperez</a>) on <a href="http://codepen.io" target="_blank" rel="external">CodePen</a>.</p><p>You can see it better <a href="http://codepen.io/jmperez/full/Xmzobe/" target="_blank" rel="external">in full screen</a>. I recommend that you use network throttling and disable cache to notice the full animation.</p><p>This filmstrip view shows the above codepen when disabling cache and throttling to &#x201C;Good 3G&#x201D;: </p><p><amp-img src="/assets/images/posts/medium-codepen.png" width="593" height="82" layout="responsive"></amp-img></p><p></p><h2 id="Is-it-worth-it"><a href="#Is-it-worth-it" class="headerlink" title="Is it worth it?"></a>Is it worth it?</h2><p>Clearly, there is a lot of things going on to be able to render an image this way, and it can be discouraging to do something similar on your site. A few years ago it would have been impossible to do this animations and blur effects in a performant way, but the truth is that most of the times the latency is the bottleneck, not the device capabilities, and we can play with these visual explorations.</p><p>Having full control of the loading of images has some advantages:</p><ul><li><p><strong>Lazy loading</strong>. Using JS for making the requests allows them to be in control of what images are requested. While all the small thumbnails are requested, the large images are only requests when they are within the viewport.</p></li><li><p><strong>Better placeholder</strong>. The thumbnails are very small, barely 2kB, which combined with the blurry effect allows for a better placeholder than a solid colour, without sacrificing payload.</p></li><li><p><strong>Tailored image sizes</strong>. Medium serves different images sizes depending on the device that makes the requests, which optimises the weight of the page.</p></li></ul><h2 id="Variants"><a href="#Variants" class="headerlink" title="Variants"></a>Variants</h2><p>Before finding out about this technique, I thought of using a similar approach for a site I&#x2019;m working on.</p><h3 id="Inlining-image-data"><a href="#Inlining-image-data" class="headerlink" title="Inlining image data"></a>Inlining image data</h3><p>Instead of making a request for the small thumbnails, it is possible to inline them using data URIs. This increases the size of the HTML, but accelerates the rendering of the placeholder, which is immediate one the markup is downloaded. The blur effect allows these images to be really small. I did some tests with 0.5kB size images, and the result was similar to using a 4x larger image.</p><h3 id="Blur-effect"><a href="#Blur-effect" class="headerlink" title="Blur effect"></a>Blur effect</h3><p>By default, when a browser renders a small image scaled up, it applies a light blur effect to smooth the artefacts of the image. The effect can also be <a href="http://superuser.com/questions/530317/how-to-prevent-chrome-from-blurring-small-images-when-zoomed-in" target="_blank" rel="external">turned off</a> for images like QR codes.</p><blockquote><p>[&#x2026;]the browser would render it in a way that didn&#x2019;t make it look blocky[&#x2026;] from <a href="https://developers.google.com/web/updates/2015/01/pixelated" target="_blank" rel="external">Google Developers</a>.</p></blockquote><p>This works both in Chrome, Safari and Firefox (I haven&#x2019;t tried on IE yet), though the smoothing effect is more prominent in Chrome. Here is a demo, but you can see it better <a href="http://codepen.io/jmperez/full/Xmzobe/" target="_blank" rel="external">in full screen</a>:</p><p data-height="367" data-theme-id="0" data-slug-hash="Xmzobe" data-default-tab="result" data-user="jmperez" class="codepen">See the Pen <a href="http://codepen.io/jmperez/pen/Xmzobe/" target="_blank" rel="external">Blur effect when scaling up a small image</a> by Jos&#xE9; Manuel P&#xE9;rez (<a href="http://codepen.io/jmperez" target="_blank" rel="external">@jmperez</a>) on <a href="http://codepen.io" target="_blank" rel="external">CodePen</a>.</p><p>Note how the artefacts are smoothen. Keep in mind that the image is only 27px wide and has very low quality, which should result in an awful scaled-up version, but it isn&#x2019;t. If the above effect is enough for you, then you don&#x2019;t need to use more complicated alternatives.</p><p>The blur effect can also be achieved using <a href="http://codepen.io/aniketpant/pen/DsEve" target="_blank" rel="external">CSS Filter Effects</a>. <a href="http://caniuse.com/#feat=css-filters" target="_blank" rel="external">Its support is quite wide</a> aside from IE. I&#x2019;m pretty sure Medium tried this before going to a canvas solution, which feels far too over-engineered, but for some reason they decided not to use it.</p><p></p><p data-height="367" data-theme-id="0" data-slug-hash="PPOXzY" data-default-tab="result" data-user="jmperez" class="codepen">See the Pen <a href="http://codepen.io/jmperez/pen/PPOXzY/" target="_blank" rel="external">Blur effect using CSS blur() filter on a small image</a> by Jos&#xE9; Manuel P&#xE9;rez (<a href="http://codepen.io/jmperez" target="_blank" rel="external">@jmperez</a>) on <a href="http://codepen.io" target="_blank" rel="external">CodePen</a>.</p><p>The advantage of this technique is that you can easily tweak how much blur you want and everything is achieved using CSS.</p><p>Another option is to use a SVG filter, as explained in <a href="https://css-tricks.com/the-blur-up-technique-for-loading-background-images/" target="_blank" rel="external">The &#x201C;Blur Up&#x201D; Technique for Loading Background Images</a> and <a href="http://rentafounder.com/textured-gradients-in-pure-css/" target="_blank" rel="external">Textured Gradients in Pure CSS</a>.</p><h3 id="Other-ways-of-improving-placeholders-Google-Images-Search"><a href="#Other-ways-of-improving-placeholders-Google-Images-Search" class="headerlink" title="Other ways of improving placeholders: Google Images Search"></a>Other ways of improving placeholders: Google Images Search</h3><p>A simpler technique is used by Google Search when searching for images from a smartphone: <a href="{/assets/images/posts/google-images-placeholder.png"><p><amp-img src="/assets/images/posts/google-images-placeholder.png" width="765" height="566" layout="responsive"></amp-img></p></a> <em>&#x2191; Google Images Search shows a solid background as placeholder (left image is while loading, right when already loaded).</em></p><p>They pick a colour (maybe the dominant colour of the picture?) and they use it a solid colour background. It gives the user the feeling that images loads faster.</p><h3 id="An-even-more-advanced-one-Facebook&#x2019;s-200-byte-technique"><a href="#An-even-more-advanced-one-Facebook&#x2019;s-200-byte-technique" class="headerlink" title="An even more advanced one: Facebook&#x2019;s 200 byte technique"></a>An even more advanced one: Facebook&#x2019;s 200 byte technique</h3><p>Earlier this year Facebook posted &#x201C;<a href="https://code.facebook.com/posts/991252547593574/the-technology-behind-preview-photos/" target="_blank" rel="external">The technology behind preview photos</a>&#x201C;, an interesting article about serving 42 x 42px image previews without the JPEG header.</p><p>The scenario is a bit different, since these &#x201C;images&#x201D; are served to the Facebook mobile client, which knows how to prepend the header to compose a valid JPEG image. In the case of a website, we would need to compose this using Javascript, which would probably remove most of the savings. A solution would be to use a Service Worker to do the composition, though we would still need some Javascript to send a &#x201C;request&#x201D; with the image contents.</p><p>In any case, it seems a bit overkilling for the web, but I wanted to include it as a reference. <a href="/webp-placeholder-images/">Using WebP for generating this preview images</a> can lead to similar savings without having to resort to &#x201C;creative&#x201D; solutions.</p><h3 id="LQIP-Low-Quality-Image-Placeholders"><a href="#LQIP-Low-Quality-Image-Placeholders" class="headerlink" title="LQIP: Low Quality Image Placeholders"></a>LQIP: Low Quality Image Placeholders</h3><p>Instead of waiting for the final image to be rendered, we can serve a highly compressed image first, and then switch to the large one. This is what <a href="http://www.guypo.com/introducing-lqip-low-quality-image-placeholders/" target="_blank" rel="external">Low Quality Image Placeholders (LQIP)</a> consists of. The idea is similar to Medium&#x2019;s, but serving an image with the same dimensions but higher compression.</p><h2 id="Conclusion"><a href="#Conclusion" class="headerlink" title="Conclusion"></a>Conclusion</h2><p>As our pages load more and more images, it is good to think of their loading process on our pages, since it affects performance and user experience.</p><p>If you are generating several thumbnail sizes for your images, you can experiment using a very small one to use it as the background while the final image loads.</p><div id="hexo-amp-id-4"  class="read-next"  ><strong>Interested in other image tips and tricks?</strong><br>Check out <a href="/image-optimization-lossy-lossless-techniques">Image optimization: Lossy, lossless and other techniques</a>.</div>
+			  	</div>
+
+		  	</article>
+		</div>
+    <footer>
+        <section class="links">
+            <a href="https://twitter.com/jmperezperez">@jmperezperez</a> on Twitter · <a href="https://github.com/JMPerez">GitHub</a> · <a href="http://www.linkedin.com/in/jmperezperez">LinkedIn</a> · <a href="https://plus.google.com/107456024651797783420">Google+</a>
+        </section>
+    </footer>
+
+	</div>
+  </article>
+
+  </body>
+</html>

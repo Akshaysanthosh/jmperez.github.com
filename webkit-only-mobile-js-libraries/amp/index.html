@@ -1,0 +1,607 @@
+<!doctype html>
+<html ⚡>
+  <head>
+    <meta charset="utf-8">
+    <link rel="canonical" href="https://jmperezperez.com/webkit-only-mobile-js-libraries/" >
+    <title>On webkit-only mobile javascript libraries - Web development, performance, and some other good practices.</title>
+    <meta name="viewport" content="width=device-width,minimum-scale=1,initial-scale=1">
+    <style amp-boilerplate>body{-webkit-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-moz-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-ms-animation:-amp-start 8s steps(1,end) 0s 1 normal both;animation:-amp-start 8s steps(1,end) 0s 1 normal both}@-webkit-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-moz-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-ms-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-o-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}</style>
+    <noscript><style amp-boilerplate>body{-webkit-animation:none;-moz-animation:none;-ms-animation:none;animation:none}</style></noscript>
+    
+    
+    
+    
+    <script async custom-element="amp-analytics" src="https://cdn.ampproject.org/v0/amp-analytics-0.1.js"></script>
+    
+
+    <script async src="https://cdn.ampproject.org/v0.js"></script>
+    <script type="application/ld+json">
+		{
+			"@context": "http://schema.org",
+			"@type": "BlogPosting",
+			"headline": "On webkit-only mobile javascript libraries",
+			
+			"description": "Many mobile-focused JS libraries doesn&#39;t support Opera or Windows Phone 7. Thus, not all smartphones are covered.",
+			
+			"mainEntityOfPage":{
+			    "@type":"WebPage",
+			    "@id":"webkit-only-mobile-js-libraries/"
+			},
+			"datePublished": "2012-01-08T15:39:02.000Z",
+			"dateModified": "2016-11-21T08:21:11.000Z",
+			
+			"image": {
+				"@type": "ImageObject",
+				"url": "/amp-dist/sample/sample-substituteTitleImage.png",
+				"width" : "1024",
+				"height" : "800"
+			},
+			
+			"author": {
+			    "@type": "Person",
+			    "name": "Jose M. Perez"
+			},
+			"publisher": {
+			    "@type": "Organization",
+			    "name": "JMPerez Blog"
+			    
+			    ,
+			    "logo": {
+			      "@type": "ImageObject",
+			      "url": "https://jmperezperez.com/amp-dist/logo.png",
+			      "width": 600,
+			      "height": 60
+			    }
+			    
+			}
+		}
+	</script>
+	
+	<style amp-custom>
+		/*--RESET--*/
+* {
+
+    -webkit-box-sizing: border-box;
+       -moz-box-sizing: border-box;
+            box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    border: none;
+    vertical-align: baseline;
+    font: inherit;
+}
+
+input, button {
+    background: none;
+
+    -webkit-appearance: none;
+       -moz-appearance: none;
+            appearance: none;
+}
+
+/*--BODY--*/
+
+body {
+    background: #fff;
+    color: #555;
+    font-family: Georgia, Times;
+    font-weight: 300;
+    font-style: normal;
+    font-size: 19px;
+    line-height: 1.725;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+@media(max-width: 800px) {
+    body {
+        font-size: 17px;
+    }
+}
+
+@media(max-width: 600px) {
+    body {
+        font-size: 15px;
+    }
+}
+
+h1, h2, h3, h4, h5 {
+    color: #212121;
+    font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+    font-weight: 600;
+    font-size: 1em;
+    line-height: 1.3;
+    margin-bottom: 1em;
+}
+
+#menu a, .button {
+
+    font-weight: 400;
+    font-size: 1em;
+}
+
+p, .post ul, .post ol, iframe, video, amp-video {
+    margin: 0;
+    margin-bottom: 1em;
+}
+
+a {
+    color: #2a7cb2;
+    text-decoration: none;
+    font-weight: inherit;
+
+    -webkit-transition: color .15s ease-out, border-bottom-color .15s ease-out;
+       -moz-transition: color .15s ease-out, border-bottom-color .15s ease-out;
+         -o-transition: color .15s ease-out, border-bottom-color .15s ease-out;
+            transition: color .15s ease-out, border-bottom-color .15s ease-out;
+}
+
+a:hover {
+    color: #2a7cb2;
+}
+
+p a {
+    border-bottom: 1px solid #eee;
+}
+
+p a:hover {
+    border-bottom-color: #212121;
+}
+
+strong {
+    font-weight: 400;
+}
+
+em {
+    font-style: italic;
+}
+
+h1 {font-size: 1.7em;}
+h2 {
+    color: #444;
+    font-size: 1.6em;
+    font-weight: 400;
+}
+h3 {
+    color: #666;
+    font-size: 1.4em;
+    font-weight: 400;
+}
+h4 {font-size: 1.18em;}
+h5 {font-size: 1em;}
+
+
+p + h2, p + h3, p + h4, p + h5 {
+    padding-top: 1em;
+}
+
+a h1, a h2, a h3, a h4, a h5 {
+    -webkit-transition: color .15s ease-out;
+       -moz-transition: color .15s ease-out;
+         -o-transition: color .15s ease-out;
+            transition: color .15s ease-out;
+}
+
+a:hover h1, a:hover h2, a:hover h3, a:hover h4, a:hover h5 {
+    color: #3498db;
+}
+
+.quote {
+    margin: 0 0 15px 0;
+}
+
+blockquote {
+    margin: 0 0 15px 0;
+    padding-left: 20px;
+    border-left: 2px solid #ccc;
+    font-style: italic;
+}
+
+ul, ol {
+    margin: 0 0 15px 0;
+    padding-left: 25px;
+}
+
+ul {list-style: square;}
+ol {list-style: decimal;}
+
+sup {vertical-align: super;}
+sub {vertical-align: sub;}
+
+hr {
+    display: block;
+    clear: both;
+    margin: 30px auto;
+    width: 50%;
+    height: 2px;
+    background: #eee;
+    color: #eee;
+}
+
+pre, code {
+/*    overflow-x: auto;
+    margin: 0 0 5% 0;
+    padding-right: 0.5em;
+    padding-left: 0.5em;
+    border: 1px solid #ddd;
+    border-radius: 3px;
+    color: #333;
+    font: 400 15px/24px monospace;*/
+    overflow-x: auto;
+    color: #333;
+    font-family: Courier, Menlo, Monaco;
+    letter-spacing: 0px;
+    font-size: 0.9em;
+}
+
+pre code {
+    padding-left: 0;
+    border: none;
+    font-size: 90%;
+}
+
+pre {
+    padding: 15px 20px;
+}
+
+code {
+    margin: 0;
+}
+
+/*--CLEARFIXES--*/
+
+.post::after {
+    display: block;
+    clear: both;
+    content: '';
+}
+
+/*--HEADER--*/
+
+body > header {
+    font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+    position: relative;
+    overflow: hidden;
+    padding: 1em;
+    width: 100%;
+    border-bottom: 2px solid #eee;
+    text-align: center;
+}
+
+/*--MENU--*/
+
+#menu {
+    display: inline-block;
+    margin: 1px 0;
+}
+
+#menu a {
+    margin-left: 15px;
+    color: #666;
+    text-transform: uppercase;
+    font-size: 14px;
+    padding: 20px 10px;
+}
+
+#menu a:hover {
+    color: #212121;
+}
+#menu a.current {
+    color: #212121;
+}
+
+/*--PAGE--*/
+
+#page {
+    position: relative;
+    margin: 0 auto;
+    padding: 3em 2em;
+    max-width: 40em;
+}
+
+/*--WRAPPER--*/
+
+.wrapper {
+    padding: 7.5% 0;
+    border-top: 2px solid #eee;
+}
+
+.wrapper:first-child {
+    padding-top: 0;
+    border-top: none;
+}
+
+/*--POSTS--*/
+
+.post {
+    display: block;
+    width: 100%;
+}
+
+.post div[itemprop=articleBody] > p:first-child {
+    color: #333;
+}
+
+.post li {
+    margin-bottom: 0.5em;
+}
+
+.post p img {
+    display: block;
+    margin: 5% auto;
+    max-width: 100%;
+    border: 1px solid #eee;
+}
+
+.post .svg-container {
+    text-align: center;
+    margin-bottom: 5%;
+    max-width: 100%;
+}
+
+video {
+  height: auto;
+  max-width: 100%;
+}
+
+.post .svg-container object {
+    width: 100%;
+}
+
+.tags {
+    font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+    font-size: 0.9em;
+}
+
+.tag-list {
+    padding: 0;
+    display: inline-block;
+}
+
+.tag-list li {
+    display: inline-block;
+}
+
+.tag-list li:after {
+    content: ', ';
+}
+
+.tag-list li:last-child:after {
+    content: '';
+}
+
+
+/*--PAGINATION--*/
+
+.pagination {
+    text-align: center;
+}
+
+.pagination a {
+    min-width: 30px;
+    max-height: 30px;
+    text-align: center;
+}
+
+/*--FOOTER--*/
+
+footer {
+    padding: 2em;
+    background: rgba(0, 0, 0, 0.05);
+    text-align: center;
+}
+
+/*--BUTTONS--*/
+
+.button {
+    display: inline-block;
+    padding: 10px 20px;
+    border-radius: 20px;
+    border: 1px solid #555;
+    background-color: #fff;
+    color: #555;
+    font-size: 13px;
+    line-height: 10px;
+
+    -webkit-transition: background-color .15s ease-out;
+       -moz-transition: background-color .15s ease-out;
+         -o-transition: background-color .15s ease-out;
+            transition: background-color .15s ease-out;
+}
+
+.button:hover {
+    background-color: #3498db;
+    color: #fff;
+    border-color: transparent;
+}
+
+.button.inactive {
+    background-color: #ccc;
+    color: #fff;
+}
+
+/*--404--*/
+.search-goog input {
+    padding: 10px;
+    border: 2px solid #ddd;
+}
+
+.search-goog input[type=submit] {
+    background-color: #ddd;
+    cursor: pointer;
+}
+
+@media only screen and (max-width: 768px) {
+
+    /*--PAGE--*/
+
+    #page, .wrapper {
+        margin: 0;
+        max-width: 100%;
+        width: 100%;
+        padding: 1.5em;
+    }
+
+    /*--WRAPPER--*/
+
+    .wrapper {
+        padding: 10% 0;
+    }
+
+    .wraper::after {
+        display: block;
+        clear: both;
+        content: '';
+    }
+
+    /*--POSTS--*/
+
+    .post {
+        margin: 0 auto;
+        max-width: 640px;
+    }
+
+}
+
+/*--ACCESSIBILITY--*/
+.outscreen
+{
+    position: absolute;
+    left: -1000px;
+    top: auto;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+}
+
+/*--CALLOUT--*/
+.callout {
+    font-size: 90%;
+    padding: 20px;
+    margin: 20px 0;
+    border: 1px solid #eee;
+    border-left-width: 5px;
+    border-left-color: #777;
+    border-radius: 3px;
+}
+
+.author {
+    font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+    font-size: 0.8em;
+    margin-bottom: 2em;
+}
+
+.author .name {
+    line-height: 1.5;
+    padding-top: 0.35em;
+}
+
+.media, .bd {
+    overflow: hidden;
+    _overflow: visible;
+    
+}
+
+.media .img {
+    float: left;
+}
+
+.avatar-img {
+    border-radius: 100%;
+    height: 3.5em;
+    width: 3.5em;
+    margin-right: 0.5em;
+}
+
+.highlight {
+    border: 1px solid #eee;
+    margin-bottom: 1em;
+}
+
+/* SYNTAX HIGHLIGHTING */
+
+.highlight {
+  overflow-x: auto;
+}
+
+.code{font-family: Courier,Menlo,Monaco;letter-spacing: 0; font-size: .9em;display:block;background:white;color:#333333;overflow-x:auto}.code .comment,.code .meta{color:#969896}.code .string,.code .variable,.code .template-variable,.code .strong,.code .emphasis,.code .quote{color:#df5000}.code .keyword,.code .selector-tag,.code .type{color:#a71d5d}.code .literal,.code .symbol,.code .bullet,.code .attribute{color:#0086b3}.code .section,.code .name{color:#63a35c}.code .tag{color:#333333}.code .title,.code .attr,.code .selector-id,.code .selector-class,.code .selector-attr,.code .selector-pseudo{color:#795da3}.code .addition{color:#55a532;background-color:#eaffea}.code .deletion{color:#bd2c00;background-color:#ffecec}.code .link{text-decoration:underline}
+
+	</style>
+	
+  </head>
+  <body>
+
+  	<!-- google analytics -->
+  	
+  	<amp-analytics type="googleanalytics" id="google-analytics">
+		<script type="application/json">
+		{
+		  "vars": {
+		    "account": "UA-39254352-1"
+		  },
+		  "triggers": {
+		    "trackPageview": {
+		      "on": "visible",
+		      "request": "pageview"
+		    }
+		  }
+		}
+		</script>
+	</amp-analytics>
+	
+
+  <header>
+      <nav id="menu">
+          <a href="/">JMPerez Blog</a>
+          <a href="/projects/">Projects</a>
+          <a href="/about-me/">About</a>
+      </nav>
+  </header>
+
+  <article>
+  	<div class="post">
+	  	<div id="page">
+
+		    <article id="post-webkit-only-mobile-js-libraries" class="post wrapper">
+
+        <div class="media author">
+          <div class="img">
+            <a href="/about-me/">
+              <amp-img src="/assets/images/jmperez.jpg" class="avatar-img" alt="" height="53" width="53">
+            </a>
+          </div>
+          <div class="bd">
+            <address class="name" itemprop="author" itemscope itemtype="https://schema.org/Person"><a href="/about-me/" itemprop="name">José M. Pérez</a></address>
+            <meta class="post-data" itemprop="datePublished" content="2012-01-08T15:39:02.000Z">
+              January 08 2012
+            </meta>
+          </div>
+        </div>
+
+				<!-- entry title -->
+				<header class="entry-header">
+					
+					  <h1 class="article-title entry-title" itemprop="name">
+					    On webkit-only mobile javascript libraries
+					  </h1>
+					
+				</header>
+
+				<!-- entry content -->
+			    <div class="entry-content ecp">
+			  		<p>During the last days I have been looking for a Javascript library targeted to recent mobile devices. Though I am familiar with jQuery, there is a lot of code that deals with browsers and issues that are specific to desktop browsers, but not to mobile ones, at least when working with browsers running on smartphones and tablets. <a href="/assets/images/posts/jq-mobi-requires-webkit-browser.png"><p><amp-img src="/assets/images/posts/jq-mobi-requires-webkit-browser-164x300.png" width="164" height="300" layout="responsive"></amp-img></p></a></p><p>All of them work seamlessly on webkit browsers, which are the most broadly used ones, but only a few take into account Internet Explorer, Opera Mobile or Firefox.</p><a id="more"></a><h2 id="The-current-status-of-modern-mobile-browsers"><a href="#The-current-status-of-modern-mobile-browsers" class="headerlink" title="The current status of modern mobile browsers"></a>The current status of modern mobile browsers</h2><p>Although there is a vast diversity of mobile devices, I will focus on those running on smartphones and tablets, which normally have a quite good support of HTML5 features and provide a native DOM selector through <code>document.querySelector</code> function.</p><p>There are nice sites showing comparison of different Javascript libraries for mobile, i.e <a href="http://www.markus-falk.com/mobile-frameworks-comparison-chart/" target="_blank" rel="external">Markus Falk’s</a>.</p><p>In my case I would like to find a library that works across all devices that support HTML5. I have been using <a href="http://zeptojs.com" target="_blank" rel="external">zepto.js</a> for some time. It is quite small and it has a jQuery-ish syntax. However, it lacks support of some HTML5 compliant browsers:</p><blockquote><p>Zepto supports Safari, Chrome, Firefox and Opera and any mobile WebKit-based browser, including iOS Mobile Safari, Android browser, HP webOS browser, Blackberry Tablet OS browser and others. Zepto does not support Internet Explorer.</p></blockquote><p>You are the only one who knows better what platforms your products are targeted to and what browsers your visitors are using to reach your site. Just keep in mind that there are more players apart from webkit.</p><h3 id="Windows-Phone-7"><a href="#Windows-Phone-7" class="headerlink" title="Windows Phone 7"></a>Windows Phone 7</h3><p>Not supporting Internet Explorer, Zepto doesn’t support Windows Phone 7 devices. <a href="http://en.wikipedia.org/wiki/Windows_Phone#Web_browser" target="_blank" rel="external">WP7’s browser</a> is an Internet Explorer version for mobile, that at least in its latest version 9 supports widely HTML5 features. At least from a mobile-targeted JS library point of view, it provides <code>document.querySelectorAll</code> and it is compatible with the standard way to add, for instance, an event using <code>element.addEventListener</code>.</p><p>Microsoft is working hard in order to provide Windows Phone 7 devices with a top browser that mobile specific libraries seem to ignore.</p><h3 id="Firefox-for-Mobile-aka-Fennec"><a href="#Firefox-for-Mobile-aka-Fennec" class="headerlink" title="Firefox for Mobile (aka Fennec)"></a>Firefox for Mobile (aka Fennec)</h3><p>By only supporting webkit devices, Mozilla’s <a href="http://www.mozilla.org/mobile/" target="_blank" rel="external">Firefox for Mobile</a> is put aside, even though they are working hard on adding promising HTML5 APIs. Recently, I got the chance to play around with the Battery API, the Camera API and the Vibrator API checking out <a href="http://johnhammink.blogspot.com/2011/11/lets-have-look-at-some-recently-landed.html" target="_blank" rel="external">John Hammink’s demos</a> using a nightly version of this browser on an Android phone.</p><h3 id="Opera-Mobile"><a href="#Opera-Mobile" class="headerlink" title="Opera Mobile"></a>Opera Mobile</h3><p><a href="http://my.opera.com/operamobile/blog/opera-mobile-11-for-android-and-symbian" target="_blank" rel="external">Opera Mobile</a>, being powered by a Presto engine, is also disregarded by webkit-only frameworks. And it seems they are doing a great job supporting HTML5 functionality. Seeing how they are performing in the <a href="https://market.android.com/details?id=com.opera.browser" target="_blank" rel="external">Android Market</a> with increasing download rates and good reviews, we should keep an eye on it.</p><h2 id="A-tip-for-mobile-JS-libraries-developers"><a href="#A-tip-for-mobile-JS-libraries-developers" class="headerlink" title="A tip for mobile JS libraries developers"></a>A tip for mobile JS libraries developers</h2><p>It is clear that supporting more platforms means having to deal with specific browser’s issues that may lead to more work to be done in order to maintain the library. Moreover, these libraries have a small size as one of its main constraints.</p><p>However, take into account that most recent versions of Internet Explorer and Opera Mobile have a similar feature set to the webkit’s one, and adding support to them could be quite easy.</p><p>Having a look at their source code, I have seen that some libraries rely on non-standard features, like proprietary property <a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Object/proto" target="_blank" rel="external"><strong>proto</strong></a>, to provide a chain-able API and add custom functions like addClass or removeClass to an element, or ready to a document.</p><p>Take <a href="https://github.com/madrobby/zepto/blob/master/src/zepto.js#L74" target="_blank" rel="external">zepto.js as an example</a>:</p><figure class="highlight js"><table><tr><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">Z</span>(<span class="params">dom, selector</span>)</span>&#123;</div><div class="line">    dom = dom || emptyArray;</div><div class="line">    dom.__proto__ = Z.prototype;</div><div class="line">    dom.selector = selector || <span class="string">''</span>;</div><div class="line">    <span class="keyword">return</span> dom;</div><div class="line">&#125;</div></pre></td></tr></table></figure><p>The usage of <code>__proto__</code> to extend the DOM element by modifying the prototype chain doesn’t work on IE or Opera, as a user <a href="https://github.com/madrobby/zepto/issues/272" target="_blank" rel="external">already pointed out</a>.</p><p>This is an approach to avoid <a href="http://perfectionkills.com/whats-wrong-with-extending-the-dom/" target="_blank" rel="external">extending the DOM</a>, defining every helper method in every retrieved DOM element, or implementing a wrapper around an HTMLElement like jQuery does with its jQuery object, but only supporting Gecko and Webkit browsers.</p><h2 id="A-tip-for-webapps-developers"><a href="#A-tip-for-webapps-developers" class="headerlink" title="A tip for webapps developers"></a>A tip for webapps developers</h2><p>I would like to tell developers that they should try to go the extra mile and consider supporting non-webkit mobile browsers. Definitely, manufacturers like Nokia are betting on WP7 (you only have to see their <a href="http://www.huffingtonpost.co.uk/2011/11/30/nokia-lumia-deadmau5-london_n_1120266.html" target="_blank" rel="external">Lumia 800 ad campaign</a>) and we could see an increase in IE mobile share. In addition, as browsers other than the default one can be installed on some devices like Android ones, opening the door to Opera Mobile and Firefox, we can’t be sure that an Android user will be using a webkit browser.</p>
+			  	</div>
+
+		  	</article>
+		</div>
+    <footer>
+        <section class="links">
+            <a href="https://twitter.com/jmperezperez">@jmperezperez</a> on Twitter · <a href="https://github.com/JMPerez">GitHub</a> · <a href="http://www.linkedin.com/in/jmperezperez">LinkedIn</a> · <a href="https://plus.google.com/107456024651797783420">Google+</a>
+        </section>
+    </footer>
+
+	</div>
+  </article>
+
+  </body>
+</html>

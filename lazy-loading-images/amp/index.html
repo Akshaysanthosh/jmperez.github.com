@@ -1,0 +1,607 @@
+<!doctype html>
+<html ⚡>
+  <head>
+    <meta charset="utf-8">
+    <link rel="canonical" href="https://jmperezperez.com/lazy-loading-images/" >
+    <title>Lazy-loading images on the web to improve loading time and saving bandwidth - Web development, performance, and some other good practices.</title>
+    <meta name="viewport" content="width=device-width,minimum-scale=1,initial-scale=1">
+    <style amp-boilerplate>body{-webkit-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-moz-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-ms-animation:-amp-start 8s steps(1,end) 0s 1 normal both;animation:-amp-start 8s steps(1,end) 0s 1 normal both}@-webkit-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-moz-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-ms-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-o-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}</style>
+    <noscript><style amp-boilerplate>body{-webkit-animation:none;-moz-animation:none;-ms-animation:none;animation:none}</style></noscript>
+    
+    
+    
+    
+    <script async custom-element="amp-analytics" src="https://cdn.ampproject.org/v0/amp-analytics-0.1.js"></script>
+    
+
+    <script async src="https://cdn.ampproject.org/v0.js"></script>
+    <script type="application/ld+json">
+		{
+			"@context": "http://schema.org",
+			"@type": "BlogPosting",
+			"headline": "Lazy-loading images on the web to improve loading time and saving bandwidth",
+			
+			"description": "When building a website, consider lazy loading the assets when they are needed. This post will focus in the specific case of lazy loading images.",
+			
+			"mainEntityOfPage":{
+			    "@type":"WebPage",
+			    "@id":"lazy-loading-images/"
+			},
+			"datePublished": "2016-07-31T05:30:00.000Z",
+			"dateModified": "2016-11-21T08:15:26.000Z",
+			
+			"image": {
+				"@type": "ImageObject",
+				"url": "https://jmperezperez.com/assets/images/posts/open-pages-structure.png",
+				"width" : "1486",
+				"height" : "3258"
+			},
+			
+			"author": {
+			    "@type": "Person",
+			    "name": "Jose M. Perez"
+			},
+			"publisher": {
+			    "@type": "Organization",
+			    "name": "JMPerez Blog"
+			    
+			    ,
+			    "logo": {
+			      "@type": "ImageObject",
+			      "url": "https://jmperezperez.com/amp-dist/logo.png",
+			      "width": 600,
+			      "height": 60
+			    }
+			    
+			}
+		}
+	</script>
+	
+	<style amp-custom>
+		/*--RESET--*/
+* {
+
+    -webkit-box-sizing: border-box;
+       -moz-box-sizing: border-box;
+            box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    border: none;
+    vertical-align: baseline;
+    font: inherit;
+}
+
+input, button {
+    background: none;
+
+    -webkit-appearance: none;
+       -moz-appearance: none;
+            appearance: none;
+}
+
+/*--BODY--*/
+
+body {
+    background: #fff;
+    color: #555;
+    font-family: Georgia, Times;
+    font-weight: 300;
+    font-style: normal;
+    font-size: 19px;
+    line-height: 1.725;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+@media(max-width: 800px) {
+    body {
+        font-size: 17px;
+    }
+}
+
+@media(max-width: 600px) {
+    body {
+        font-size: 15px;
+    }
+}
+
+h1, h2, h3, h4, h5 {
+    color: #212121;
+    font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+    font-weight: 600;
+    font-size: 1em;
+    line-height: 1.3;
+    margin-bottom: 1em;
+}
+
+#menu a, .button {
+
+    font-weight: 400;
+    font-size: 1em;
+}
+
+p, .post ul, .post ol, iframe, video, amp-video {
+    margin: 0;
+    margin-bottom: 1em;
+}
+
+a {
+    color: #2a7cb2;
+    text-decoration: none;
+    font-weight: inherit;
+
+    -webkit-transition: color .15s ease-out, border-bottom-color .15s ease-out;
+       -moz-transition: color .15s ease-out, border-bottom-color .15s ease-out;
+         -o-transition: color .15s ease-out, border-bottom-color .15s ease-out;
+            transition: color .15s ease-out, border-bottom-color .15s ease-out;
+}
+
+a:hover {
+    color: #2a7cb2;
+}
+
+p a {
+    border-bottom: 1px solid #eee;
+}
+
+p a:hover {
+    border-bottom-color: #212121;
+}
+
+strong {
+    font-weight: 400;
+}
+
+em {
+    font-style: italic;
+}
+
+h1 {font-size: 1.7em;}
+h2 {
+    color: #444;
+    font-size: 1.6em;
+    font-weight: 400;
+}
+h3 {
+    color: #666;
+    font-size: 1.4em;
+    font-weight: 400;
+}
+h4 {font-size: 1.18em;}
+h5 {font-size: 1em;}
+
+
+p + h2, p + h3, p + h4, p + h5 {
+    padding-top: 1em;
+}
+
+a h1, a h2, a h3, a h4, a h5 {
+    -webkit-transition: color .15s ease-out;
+       -moz-transition: color .15s ease-out;
+         -o-transition: color .15s ease-out;
+            transition: color .15s ease-out;
+}
+
+a:hover h1, a:hover h2, a:hover h3, a:hover h4, a:hover h5 {
+    color: #3498db;
+}
+
+.quote {
+    margin: 0 0 15px 0;
+}
+
+blockquote {
+    margin: 0 0 15px 0;
+    padding-left: 20px;
+    border-left: 2px solid #ccc;
+    font-style: italic;
+}
+
+ul, ol {
+    margin: 0 0 15px 0;
+    padding-left: 25px;
+}
+
+ul {list-style: square;}
+ol {list-style: decimal;}
+
+sup {vertical-align: super;}
+sub {vertical-align: sub;}
+
+hr {
+    display: block;
+    clear: both;
+    margin: 30px auto;
+    width: 50%;
+    height: 2px;
+    background: #eee;
+    color: #eee;
+}
+
+pre, code {
+/*    overflow-x: auto;
+    margin: 0 0 5% 0;
+    padding-right: 0.5em;
+    padding-left: 0.5em;
+    border: 1px solid #ddd;
+    border-radius: 3px;
+    color: #333;
+    font: 400 15px/24px monospace;*/
+    overflow-x: auto;
+    color: #333;
+    font-family: Courier, Menlo, Monaco;
+    letter-spacing: 0px;
+    font-size: 0.9em;
+}
+
+pre code {
+    padding-left: 0;
+    border: none;
+    font-size: 90%;
+}
+
+pre {
+    padding: 15px 20px;
+}
+
+code {
+    margin: 0;
+}
+
+/*--CLEARFIXES--*/
+
+.post::after {
+    display: block;
+    clear: both;
+    content: '';
+}
+
+/*--HEADER--*/
+
+body > header {
+    font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+    position: relative;
+    overflow: hidden;
+    padding: 1em;
+    width: 100%;
+    border-bottom: 2px solid #eee;
+    text-align: center;
+}
+
+/*--MENU--*/
+
+#menu {
+    display: inline-block;
+    margin: 1px 0;
+}
+
+#menu a {
+    margin-left: 15px;
+    color: #666;
+    text-transform: uppercase;
+    font-size: 14px;
+    padding: 20px 10px;
+}
+
+#menu a:hover {
+    color: #212121;
+}
+#menu a.current {
+    color: #212121;
+}
+
+/*--PAGE--*/
+
+#page {
+    position: relative;
+    margin: 0 auto;
+    padding: 3em 2em;
+    max-width: 40em;
+}
+
+/*--WRAPPER--*/
+
+.wrapper {
+    padding: 7.5% 0;
+    border-top: 2px solid #eee;
+}
+
+.wrapper:first-child {
+    padding-top: 0;
+    border-top: none;
+}
+
+/*--POSTS--*/
+
+.post {
+    display: block;
+    width: 100%;
+}
+
+.post div[itemprop=articleBody] > p:first-child {
+    color: #333;
+}
+
+.post li {
+    margin-bottom: 0.5em;
+}
+
+.post p img {
+    display: block;
+    margin: 5% auto;
+    max-width: 100%;
+    border: 1px solid #eee;
+}
+
+.post .svg-container {
+    text-align: center;
+    margin-bottom: 5%;
+    max-width: 100%;
+}
+
+video {
+  height: auto;
+  max-width: 100%;
+}
+
+.post .svg-container object {
+    width: 100%;
+}
+
+.tags {
+    font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+    font-size: 0.9em;
+}
+
+.tag-list {
+    padding: 0;
+    display: inline-block;
+}
+
+.tag-list li {
+    display: inline-block;
+}
+
+.tag-list li:after {
+    content: ', ';
+}
+
+.tag-list li:last-child:after {
+    content: '';
+}
+
+
+/*--PAGINATION--*/
+
+.pagination {
+    text-align: center;
+}
+
+.pagination a {
+    min-width: 30px;
+    max-height: 30px;
+    text-align: center;
+}
+
+/*--FOOTER--*/
+
+footer {
+    padding: 2em;
+    background: rgba(0, 0, 0, 0.05);
+    text-align: center;
+}
+
+/*--BUTTONS--*/
+
+.button {
+    display: inline-block;
+    padding: 10px 20px;
+    border-radius: 20px;
+    border: 1px solid #555;
+    background-color: #fff;
+    color: #555;
+    font-size: 13px;
+    line-height: 10px;
+
+    -webkit-transition: background-color .15s ease-out;
+       -moz-transition: background-color .15s ease-out;
+         -o-transition: background-color .15s ease-out;
+            transition: background-color .15s ease-out;
+}
+
+.button:hover {
+    background-color: #3498db;
+    color: #fff;
+    border-color: transparent;
+}
+
+.button.inactive {
+    background-color: #ccc;
+    color: #fff;
+}
+
+/*--404--*/
+.search-goog input {
+    padding: 10px;
+    border: 2px solid #ddd;
+}
+
+.search-goog input[type=submit] {
+    background-color: #ddd;
+    cursor: pointer;
+}
+
+@media only screen and (max-width: 768px) {
+
+    /*--PAGE--*/
+
+    #page, .wrapper {
+        margin: 0;
+        max-width: 100%;
+        width: 100%;
+        padding: 1.5em;
+    }
+
+    /*--WRAPPER--*/
+
+    .wrapper {
+        padding: 10% 0;
+    }
+
+    .wraper::after {
+        display: block;
+        clear: both;
+        content: '';
+    }
+
+    /*--POSTS--*/
+
+    .post {
+        margin: 0 auto;
+        max-width: 640px;
+    }
+
+}
+
+/*--ACCESSIBILITY--*/
+.outscreen
+{
+    position: absolute;
+    left: -1000px;
+    top: auto;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+}
+
+/*--CALLOUT--*/
+.callout {
+    font-size: 90%;
+    padding: 20px;
+    margin: 20px 0;
+    border: 1px solid #eee;
+    border-left-width: 5px;
+    border-left-color: #777;
+    border-radius: 3px;
+}
+
+.author {
+    font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+    font-size: 0.8em;
+    margin-bottom: 2em;
+}
+
+.author .name {
+    line-height: 1.5;
+    padding-top: 0.35em;
+}
+
+.media, .bd {
+    overflow: hidden;
+    _overflow: visible;
+    
+}
+
+.media .img {
+    float: left;
+}
+
+.avatar-img {
+    border-radius: 100%;
+    height: 3.5em;
+    width: 3.5em;
+    margin-right: 0.5em;
+}
+
+.highlight {
+    border: 1px solid #eee;
+    margin-bottom: 1em;
+}
+
+/* SYNTAX HIGHLIGHTING */
+
+.highlight {
+  overflow-x: auto;
+}
+
+.code{font-family: Courier,Menlo,Monaco;letter-spacing: 0; font-size: .9em;display:block;background:white;color:#333333;overflow-x:auto}.code .comment,.code .meta{color:#969896}.code .string,.code .variable,.code .template-variable,.code .strong,.code .emphasis,.code .quote{color:#df5000}.code .keyword,.code .selector-tag,.code .type{color:#a71d5d}.code .literal,.code .symbol,.code .bullet,.code .attribute{color:#0086b3}.code .section,.code .name{color:#63a35c}.code .tag{color:#333333}.code .title,.code .attr,.code .selector-id,.code .selector-class,.code .selector-attr,.code .selector-pseudo{color:#795da3}.code .addition{color:#55a532;background-color:#eaffea}.code .deletion{color:#bd2c00;background-color:#ffecec}.code .link{text-decoration:underline}
+
+	</style>
+	
+  </head>
+  <body>
+
+  	<!-- google analytics -->
+  	
+  	<amp-analytics type="googleanalytics" id="google-analytics">
+		<script type="application/json">
+		{
+		  "vars": {
+		    "account": "UA-39254352-1"
+		  },
+		  "triggers": {
+		    "trackPageview": {
+		      "on": "visible",
+		      "request": "pageview"
+		    }
+		  }
+		}
+		</script>
+	</amp-analytics>
+	
+
+  <header>
+      <nav id="menu">
+          <a href="/">JMPerez Blog</a>
+          <a href="/projects/">Projects</a>
+          <a href="/about-me/">About</a>
+      </nav>
+  </header>
+
+  <article>
+  	<div class="post">
+	  	<div id="page">
+
+		    <article id="post-lazy-loading-images" class="post wrapper">
+
+        <div class="media author">
+          <div class="img">
+            <a href="/about-me/">
+              <amp-img src="/assets/images/jmperez.jpg" class="avatar-img" alt="" height="53" width="53">
+            </a>
+          </div>
+          <div class="bd">
+            <address class="name" itemprop="author" itemscope itemtype="https://schema.org/Person"><a href="/about-me/" itemprop="name">José M. Pérez</a></address>
+            <meta class="post-data" itemprop="datePublished" content="2016-07-31T05:30:00.000Z">
+              July 31 2016
+            </meta>
+          </div>
+        </div>
+
+				<!-- entry title -->
+				<header class="entry-header">
+					
+					  <h1 class="article-title entry-title" itemprop="name">
+					    Lazy-loading images on the web to improve loading time and saving bandwidth
+					  </h1>
+					
+				</header>
+
+				<!-- entry content -->
+			    <div class="entry-content ecp">
+			  		<p>tl;dr: Don&#x2019;t load images that the user doesn&#x2019;t see on screen. It is easier than you think.</p><a id="more"></a><h2 id="What-is-lazy-loading"><a href="#What-is-lazy-loading" class="headerlink" title="What is lazy loading"></a>What is lazy loading</h2><p>Everyone has seen lazy loading content on web sites and mobile apps. You start seeing some content, and as you scroll, more content gets loaded.</p><h2 id="A-web-page-and-all-its-requests"><a href="#A-web-page-and-all-its-requests" class="headerlink" title="A web page and all its requests"></a>A web page and all its requests</h2><p>In the case of web pages, it hasn&#x2019;t been that easy for developers to find the balance between creating many small resources or serving a big one. A trend these days consist of inlining critical resources, the ones needed to render content above the fold, and load the rest of CSS and JS asynchronously. This is easy to do in small static sites, but more difficult for larger sites with dynamic content.</p><p>Delaying the request to some assets has lots of benefits:</p><ul><li>Less data usage for the user. This is especially important on mobile, where lots of users have poor network connections and restrictive data plans.</li><li>The server or CDN has to serve less data, which translates to a cheaper bill for the site.</li><li>Important content gets prioritised. The same bandwidth is used by fewer requests in parallel, so it is more likely that they are solved faster.</li><li>Less work for the browser. The browser doesn&#x2019;t need to parse nor decode assets that are not requested.</li></ul><p>As with everything, this technique also comes with some disadvantages. Let&#x2019;s focus on lazy loading of images.</p><h2 id="Lazy-loading-images"><a href="#Lazy-loading-images" class="headerlink" title="Lazy loading images"></a>Lazy loading images</h2><p>I will talk about how we can get big wins focusing on delaying the load of images.</p><p>We can have a quick look at <a href="https://spotify.com/" target="_blank" rel="external">spotify.com home page</a>:</p><amp-video width="1194" height="798" controls src="/assets/images/posts/spotify-com-loading-images.webm" layout="responsive"><source src="/assets/images/posts/spotify-com-loading-images.webm" type="video/webm"><source src="/assets/images/posts/spotify-com-loading-images.mp4" type="video/mp4"></amp-video><p>We load the page, then clear the network tab, which is filtered to show only requests for images. As we scroll down the page, more images are requested, accounting for ~1.1MB.</p><p>Lazy loading images gives full control to select what image needs to be loaded (eg a 2x version for a retina display, or a 1x when in slower connections). It is also possible to create smooth transitions of opacity or blurriness to create nice effects. I recommend you to read <a href="/medium-image-progressive-loading-placeholder/">a previous post about progressive image rendering</a> to see some examples.</p><p>Despite is advantages, this technique also has its drawbacks.</p><h2 id="Drawbacks-of-lazy-loading-images"><a href="#Drawbacks-of-lazy-loading-images" class="headerlink" title="Drawbacks of lazy loading images"></a>Drawbacks of lazy loading images</h2><h3 id="JavaScript-based"><a href="#JavaScript-based" class="headerlink" title="JavaScript based"></a>JavaScript based</h3><p>So far, browsers don&#x2019;t support a native way of marking a certain image to be lazy loaded. The solutions are JavaScript-based, which means that it won&#x2019;t work if the browser has JS disabled or the request for the JS snippet fails.</p><p><a href="https://gds.blog.gov.uk/2013/10/21/how-many-people-are-missing-out-on-javascript-enhancement/" target="_blank" rel="external">This is not so unlikely</a>, and content-blockers are becoming more widespread used, both on desktop and mobile. For JS disabled browsers, it is possible to implement a fallback using <code>&lt;noscript&gt;</code>, although this won&#x2019;t work if the browser uses some kind of content blocker for JS files.</p><h3 id="Scroll-listeners-and-relayouts"><a href="#Scroll-listeners-and-relayouts" class="headerlink" title="Scroll listeners and relayouts"></a>Scroll listeners and relayouts</h3><p>When doing lazy load, we want to detect when the page is scrolled, and then check whether the placeholder for our image is within the rendered section of the page. And this needs to be performed for all the images we want to lazy load.</p><p>Scroll listeners can have a negative impact in scrolling performance. During the scroll movement, the browser triggers many scroll events, and finding out the position and dimension of our images causes <a href="https://gist.github.com/paulirish/5d52fb081b3570c81e3a" target="_blank" rel="external">a layout recalculation</a>. This is an expensive operation that makes the browser spend too long drawing frames, producing <a href="http://jankfree.org/" target="_blank" rel="external">stuttering when scrolling</a>.</p><p>To avoid it, JS developers usually cache dimensions and positions of some elements, and use throttling and debouncing to execute the scroll callback fewer times. Last, but not least, there is an experimental API called <a href="https://developers.google.com/web/updates/2016/04/intersectionobserver" target="_blank" rel="external">IntersectionObserver</a> that suits very well this use case. Instead of subscribing to the scroll event, and then go through the lazy-loaded images, IntersectionObserver allows us to subscribe to an event triggered when the image enters the rendered area (viewport).</p><h3 id="Fallback-content-and-viewport"><a href="#Fallback-content-and-viewport" class="headerlink" title="Fallback content and viewport"></a>Fallback content and viewport</h3><p>When an image is displayed within the rendered area, we know it needs to be fetched. But we could also fetch it when, not being strictly within the rendered area, it is very close to it. This reduces the likeliness that a placeholder is rendered without its image, but can also mean requesting images that will never be displayed.</p><p>Finally, we need to think of what will be rendered in the placeholder while the images are fetched. A possibility is to show an empty area. Why not an area filled with a dominant colour? You can revisit <a href="/medium-image-progressive-loading-placeholder/">the post about progressive image rendering</a> to get some ideas.</p><h3 id="Browser-limitations"><a href="#Browser-limitations" class="headerlink" title="Browser limitations"></a>Browser limitations</h3><p>Some browsers may limit how much work is done while scrolling. WebKit on iOS 7 scroll event change <a href="http://developer.telerik.com/featured/scroll-event-change-ios-8-big-deal/" target="_blank" rel="external">used to be fired when the scroll gesture stopped</a>, making it impossible to load. Fortunately, most used browsers today don&#x2019;t present this limitation.</p><h2 id="An-example-Spotify-Open-pages"><a href="#An-example-Spotify-Open-pages" class="headerlink" title="An example: Spotify Open pages"></a>An example: Spotify Open pages</h2><p>The <a href="https://open.spotify.com/" target="_blank" rel="external">Spotify&#x2019;s Open site</a>, where it shows information about Spotify catalogue, have been using lazy loading for the images for more than a year. Let&#x2019;s use <a href="https://open.spotify.com/track/7oSUp4yZ0FbuSvVmCxH2ty?noredir=1" target="_blank" rel="external">a track page</a> as an example.</p><p>The main goal of the page is for the user to have information about the track, and click the Call to Action button (green button) to open the track in a Spotify client or sign up. That&#x2019;s why it&#x2019;s crucial that these elements are shown above the fold.</p><p>The main image is not lazy loaded. Doing so would delay its rendering since the browser would need to first parse and execute the JS code that does the lazy loading, and then the image would be requested. However, the rest of the images below the fold, like the ones showing more albums by the same artist, don&#x2019;t need to be fetched until the user scrolls down and they enter the screen. </p><p><amp-img src="/assets/images/posts/open-pages-structure.png" width="1486" height="3258" layout="responsive"></amp-img></p><p></p><p>The Open site uses a small library that provides lazy loading. Due to its small size, it can also be inlined in the markup, so there is no need to make a request for the script and images are requested a bit earlier.</p><p>Instead of using the src attribute of an <code>&lt;img/&gt;</code> to point to the image file, we use data-src. We can also add 2x versions of the images, that will get loaded if the browser screen is a retina display.</p><p>Internally, the library makes sure the scrolling performance is not affected when using lazy load. It uses passive event listeners, throttles scroll events, caches image dimensions, and don&#x2019;t process images already loaded. Finally, it uses IntersectionObserver on supported browsers, avoiding listening to the scroll event and asking for properties from the images.</p><h2 id="Conclusion"><a href="#Conclusion" class="headerlink" title="Conclusion"></a>Conclusion</h2><p>When building a website, consider lazy loading the assets when they are needed. This is both good for the user and the site&#x2019;s servers and CDNs.</p>
+			  	</div>
+
+		  	</article>
+		</div>
+    <footer>
+        <section class="links">
+            <a href="https://twitter.com/jmperezperez">@jmperezperez</a> on Twitter · <a href="https://github.com/JMPerez">GitHub</a> · <a href="http://www.linkedin.com/in/jmperezperez">LinkedIn</a> · <a href="https://plus.google.com/107456024651797783420">Google+</a>
+        </section>
+    </footer>
+
+	</div>
+  </article>
+
+  </body>
+</html>
