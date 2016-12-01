@@ -2,6 +2,13 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://jmperezperez.com/lazy-loading-images/</loc>
+    
+    <lastmod>2016-12-01T09:21:01.000Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>https://jmperezperez.com/recommended-reading-building-findable-websites/</loc>
     
     <lastmod>2016-11-21T08:23:24.000Z</lastmod>
@@ -520,13 +527,6 @@
   </url>
   
   <url>
-    <loc>https://jmperezperez.com/lazy-loading-images/</loc>
-    
-    <lastmod>2016-11-21T08:15:26.000Z</lastmod>
-    
-  </url>
-  
-  <url>
     <loc>https://jmperezperez.com/ssim-jpeg-io/</loc>
     
     <lastmod>2016-11-21T08:15:19.000Z</lastmod>
@@ -548,14 +548,14 @@
   </url>
   
   <url>
-    <loc>https://jmperezperez.com/about-me/index.html</loc>
+    <loc>https://jmperezperez.com/projects/index.html</loc>
     
     <lastmod>2016-11-21T07:58:45.000Z</lastmod>
     
   </url>
   
   <url>
-    <loc>https://jmperezperez.com/projects/index.html</loc>
+    <loc>https://jmperezperez.com/about-me/index.html</loc>
     
     <lastmod>2016-11-21T07:58:45.000Z</lastmod>
     
