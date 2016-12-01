@@ -2,6 +2,20 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://jmperezperez.com/cssconf-au-2016/</loc>
+    
+    <lastmod>2016-12-01T10:46:52.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://jmperezperez.com/como-hemos-cambiado-antiguo-proyecto-web/</loc>
+    
+    <lastmod>2016-12-01T10:29:26.000Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>https://jmperezperez.com/lazy-loading-images/</loc>
     
     <lastmod>2016-12-01T09:21:01.000Z</lastmod>
@@ -243,13 +257,6 @@
     <loc>https://jmperezperez.com/charla-desarrollo-web-spotify/</loc>
     
     <lastmod>2016-11-21T08:20:30.000Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://jmperezperez.com/como-hemos-cambiado-antiguo-proyecto-web/</loc>
-    
-    <lastmod>2016-11-21T08:20:26.000Z</lastmod>
     
   </url>
   
@@ -548,14 +555,14 @@
   </url>
   
   <url>
-    <loc>https://jmperezperez.com/projects/index.html</loc>
+    <loc>https://jmperezperez.com/about-me/index.html</loc>
     
     <lastmod>2016-11-21T07:58:45.000Z</lastmod>
     
   </url>
   
   <url>
-    <loc>https://jmperezperez.com/about-me/index.html</loc>
+    <loc>https://jmperezperez.com/projects/index.html</loc>
     
     <lastmod>2016-11-21T07:58:45.000Z</lastmod>
     
