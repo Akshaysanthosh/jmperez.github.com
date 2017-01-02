@@ -89,10 +89,6 @@ p a:hover {
     border-bottom-color: #212121;
 }
 
-strong {
-    font-weight: 400;
-}
-
 em {
     font-style: italic;
 }
