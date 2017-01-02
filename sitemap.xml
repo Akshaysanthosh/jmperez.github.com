@@ -2,9 +2,16 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://jmperezperez.com/cssconf-au-2016/</loc>
+    
+    <lastmod>2017-01-02T10:26:09.000Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>https://jmperezperez.com/lazy-loading-images/</loc>
     
-    <lastmod>2017-01-02T10:12:42.000Z</lastmod>
+    <lastmod>2017-01-02T10:21:23.000Z</lastmod>
     
   </url>
   
@@ -26,13 +33,6 @@
     <loc>https://jmperezperez.com/mediarecorder-api-screenflow/</loc>
     
     <lastmod>2016-12-17T15:13:00.000Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://jmperezperez.com/cssconf-au-2016/</loc>
-    
-    <lastmod>2016-12-01T10:46:52.000Z</lastmod>
     
   </url>
   
