@@ -2,6 +2,13 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://jmperezperez.com/assessing-new-technology/</loc>
+    
+    <lastmod>2017-01-03T08:10:30.000Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>https://jmperezperez.com/cssconf-au-2016/</loc>
     
     <lastmod>2017-01-02T10:26:09.000Z</lastmod>
@@ -569,14 +576,14 @@
   </url>
   
   <url>
-    <loc>https://jmperezperez.com/about-me/index.html</loc>
+    <loc>https://jmperezperez.com/projects/index.html</loc>
     
     <lastmod>2016-11-21T07:58:45.000Z</lastmod>
     
   </url>
   
   <url>
-    <loc>https://jmperezperez.com/projects/index.html</loc>
+    <loc>https://jmperezperez.com/about-me/index.html</loc>
     
     <lastmod>2016-11-21T07:58:45.000Z</lastmod>
     
