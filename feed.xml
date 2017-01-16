@@ -5,7 +5,7 @@
   <link href="/feed.xml" rel="self"/>
   
   <link href="https://jmperezperez.com/"/>
-  <updated>2017-01-03T08:10:30.000Z</updated>
+  <updated>2017-01-16T15:24:35.000Z</updated>
   <id>https://jmperezperez.com/</id>
   
   <author>
@@ -14,6 +14,24 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Reading List</title>
+    <link href="https://jmperezperez.com/2017-01-reading-list/"/>
+    <id>https://jmperezperez.com/2017-01-reading-list/</id>
+    <published>2017-01-16T14:20:00.000Z</published>
+    <updated>2017-01-16T15:24:35.000Z</updated>
+    
+    <content type="html"><![CDATA[<p>I have decided to collect some of the best posts and articles I have read during last days. It is inspired by <a href="https://medium.com/r/?url=http%3A%2F%2Fwww.brucelawson.co.uk%2F" target="_blank" rel="external">Bruce Lawson</a>’s reading lists and web development newsletters. I write it to keep track of interesting content for myself, but you might also find it useful.</p><a id="more"></a><h2 id="Posts"><a href="#Posts" class="headerlink" title="Posts"></a>Posts</h2><ul><li><a href="https://medium.com/r/?url=https%3A%2F%2Fwww.filamentgroup.com%2Flab%2Fmodernizing-delivery.html" target="_blank" rel="external"><strong>Modernizing our Progressive Enhancement Delivery</strong></a><strong>.</strong> Another excellent post by Filament Group. This time they talk about integrating HTTP/2 and ServiceWorker on their site, providing good performance and offline capabilities.</li><li><a href="https://medium.com/r/?url=https%3A%2F%2Fdevelopers.googleblog.com%2F2017%2F01%2Fgoogle-amp-cache-amp-lite-and-need-for.html" target="_blank" rel="external"><strong>Google AMP Cache, AMP Lite, and the need for speed</strong></a>. A post on how Google processes images in AMP articles to improve performance based on compression, responsive images and WebP. By the way, if you are into AMP, don’t miss <a href="https://medium.com/r/?url=http%3A%2F%2FAMP%20Conf" target="_blank" rel="external">the first AMP Conf</a>, which will be live-streamed.</li><li><a href="https://medium.com/r/?url=https%3A%2F%2Fblog.google%2Fproducts%2Fgoogle-plus%2Fsaving-you-bandwidth-through-machine-learning%2F" target="_blank" rel="external"><strong>Saving you bandwidth through machine learning</strong></a>. Another post by Google, this time on upscaling small images while keeping crisp details and reducing the blurriness of traditional methods. The <a href="https://medium.com/r/?url=https%3A%2F%2Fresearch.googleblog.com%2F2016%2F11%2Fenhance-raisr-sharp-images-with-machine.html" target="_blank" rel="external">algorithm is called RAISR</a> and can be run on mobile devices in real time.</li><li><a href="https://medium.com/r/?url=https%3A%2F%2Fdevelopers.googleblog.com%2F2016%2F12%2Flandlines.html" target="_blank" rel="external"><strong>Start with a line, let the planet complete the picture</strong></a>. A fun project in which you draw lines and get images from Google Maps to create an infinite line of rivers, roads or coastlines. It made me discover the <a href="https://medium.com/r/?url=https%3A%2F%2Fen.wikipedia.org%2Fwiki%2FVantage-point_tree" target="_blank" rel="external">Vantage-point tree</a> structure.</li><li><a href="https://medium.com/r/?url=http%3A%2F%2Fdavidshariff.com%2Fblog%2Fpreparing-for-a-front-end-web-development-interview-in-2017%2F" target="_blank" rel="external"><strong>Preparing for a Front-End Web Development Interview in 2017</strong></a>. A post by David Shariff, from Amazon, on the topics you should when interviewing for a front-end dev position.</li><li><a href="https://medium.com/r/?url=https%3A%2F%2Fhackernoon.com%2Fhow-i-converted-my-react-app-to-vanillajs-and-whether-or-not-it-was-a-terrible-idea-4b14b1b2faff" target="_blank" rel="external"><strong>How I converted my React app to VanillaJS (and whether or not it was a terrible idea)</strong></a>. A long and insightful post on writing a website mimicking React’s approach using VanillaJS. If you like it, the same author wrote another good post called <a href="https://medium.com/r/?url=https%3A%2F%2Fhackernoon.com%2F10-things-i-learned-making-the-fastest-site-in-the-world-18a0e1cdf4a7" target="_blank" rel="external">10 things I learned making the fastest site in the world</a> a few days ago.</li></ul><h2 id="Presentations"><a href="#Presentations" class="headerlink" title="Presentations"></a>Presentations</h2><ul><li><a href="https://medium.com/r/?url=https%3A%2F%2Fpresentations.survivejs.com%2Fadvanced-webpack" target="_blank" rel="external"><strong>Advanced Webpack</strong></a>. A deck by <a href="https://medium.com/r/?url=https%3A%2F%2Ftwitter.com%2Fbebraw" target="_blank" rel="external">Juho Vepsäläinen</a> expalining Webpack 2 configuration, code-splitting, plugins, loaders, optimising bundles and more.</li><li><a href="https://medium.com/r/?url=https%3A%2F%2Fspeakerdeck.com%2Fbtholt%2Fpreact-and-inferno" target="_blank" rel="external"><strong>Preact &amp; Inferno</strong></a><strong>.</strong> A short deck by <a href="https://medium.com/r/?url=https%3A%2F%2Ftwitter.com%2Fholtbt" target="_blank" rel="external">Brian Holt</a> from Netflix comparing react, preact and inferno. I can’t find a recording, but I think it is a good overview of three libraries that are solving the same problem.</li></ul><h2 id="Books"><a href="#Books" class="headerlink" title="Books"></a>Books</h2><ul><li><a href="https://medium.com/r/?url=https%3A%2F%2Fadactio.com%2Fjournal%2F11608" target="_blank" rel="external"><strong>Introducing Resilient Web Design</strong></a>. A book I’ve been reading these days about the history of web and how we ended up where we are. It is free and <a href="https://medium.com/r/?url=https%3A%2F%2Fadactio.com%2Fjournal%2F11670" target="_blank" rel="external">available in many formats</a>: web, PDF, MOBI, EPUB…</li></ul>]]></content>
+    
+    <summary type="html">
+    
+      Reading List with some articles from December 2016 - January 2017
+    
+    </summary>
+    
+    
+  </entry>
   
   <entry>
     <title>Assessing New Technology</title>
@@ -399,26 +417,6 @@
     <summary type="html">
     
       Setting up ES6 in your next web project isn&#39;t that difficult... if you know how.
-    
-    </summary>
-    
-    
-      <category term="es6" scheme="https://jmperezperez.com/tags/es6/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>What I&#39;ve been up to recently</title>
-    <link href="https://jmperezperez.com/what-i-have-been-up-to/"/>
-    <id>https://jmperezperez.com/what-i-have-been-up-to/</id>
-    <published>2015-06-27T09:55:00.000Z</published>
-    <updated>2016-11-21T08:17:21.000Z</updated>
-    
-    <content type="html"><![CDATA[<p>Yes! It’s been a while since I last posted on this blog. I haven’t come up with new ideas for some time, but I do have been working on some projects I had on GitHub and needed a revisit.</p><a id="more"></a><h2 id="Calculating-tempo-of-a-song-using-Javascript"><a href="#Calculating-tempo-of-a-song-using-Javascript" class="headerlink" title="Calculating tempo of a song using Javascript"></a>Calculating tempo of a song using Javascript</h2><p>I recently realised the <a href="https://github.com/JMPerez/beats-audio-api" target="_blank" rel="external">site for calculating the BPM for a song</a> didn’t work on iPhone. After some research it turned out that the audio <code>OfflineContext</code> behaviour is different on iOS mobile than in the rest of platforms. Also, I was composing a dynamic SVG that result in the browser rendering an empty SVG, ignoring its contents. Hopefully that’s fixed now too.</p><h2 id="LinkedIn-to-JSON-Resume"><a href="#LinkedIn-to-JSON-Resume" class="headerlink" title="LinkedIn to JSON Resume"></a>LinkedIn to JSON Resume</h2><p>I am a big fan of APIs. Ever since I started using them for my end career project at University, I have worked both on implementing and consuming them.</p><p>Companies exposing their data through public APIs benefit from interesting integrations, expanding the platforms and use cases they have presence. But they are also afraid of giving out business core data for free.</p><p><a href="http://thatmikeflynn.com/2012/08/17/oh-twitter/" target="_blank" rel="external">Twitter</a>, <a href="http://techcrunch.com/2014/06/13/netflix-api-shutdown/" target="_blank" rel="external">Netflix</a> or <a href="http://thenextweb.com/dd/2015/02/12/linkedin-takes-aim-developers-plans-lock-apis/" target="_blank" rel="external">LinkedIn</a> are some well known cases of APIs that have introduced changes to become more restrictive. These changes are never welcome by developers, but nevertheless applications relying on any 3rd party API will always be prone to break.</p><p>So yes, the <a href="https://github.com/JMPerez/linkedin-to-json-resume" target="_blank" rel="external">the LinkedIn to JSON Resume exporter</a> broke because LinkedIn only allows apps access to a user’s full profile if those apps are used as part of a “apply for this position” section of a company’s site. That’s even though the user is always in control of what data an application can access, using a permission dialog (OAuth scopes).</p><p>Luckily there is a way for users to export their LinkedIn data, and that’s what the exporter tool is using. It was also my first project written using ES6 / ES.netxt / ES2015, which uses browserify + babelify to run the code on a browser.</p><p>The code is similar to <em>regular</em> Javascript, with some syntactic sugar, but I think it was a good opportunity to get used to the new syntax and get on board with the latest additions to the language.</p><h2 id="RAML-to-Swagger"><a href="#RAML-to-Swagger" class="headerlink" title="RAML to Swagger"></a>RAML to Swagger</h2><p>I have been exploring API specification languages for the creation of wrappers and documentation. <a href="http://www.michaelthelin.se/?p=861" target="_blank" rel="external">Michael Thelin</a> writes about how we are using RAML in Spotify for building the <a href="https://developer.spotify.com/web-api/console/" target="_blank" rel="external">Spotify Web API Console</a>, which has results in open-sourcing <a href="https://github.com/spotify/ramlfications" target="_blank" rel="external">the RAML python parser</a> that <a href="https://github.com/econchick" target="_blank" rel="external">Lynn Root</a> developed as part of the console.</p><p>There are lots of tools built around RAML and Swagger for creating documentation, libraries, visualisations or even mock servers.</p><p>I didn’t like the very few converters from RAML to Swagger, so I decided to start mine. Even though they are not fully equivalent, the <a href="https://github.com/JMPerez/raml2swagger" target="_blank" rel="external">raml2swagger</a> script does a decent job, and will allow us (and hopefully whoever needs it) explore the whole myriad of tools for API specifications, starting from a RAML spec.</p><hr><p>That’s all for now!</p>]]></content>
-    
-    <summary type="html">
-    
-      Some open-source projects I have been working on recently. Rest APIs, ES6 and Audio API.
     
     </summary>
     
