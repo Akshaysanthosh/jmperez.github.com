@@ -5,7 +5,7 @@
   <link href="/feed.xml" rel="self"/>
   
   <link href="https://jmperezperez.com/"/>
-  <updated>2017-01-28T18:56:50.000Z</updated>
+  <updated>2017-02-04T14:05:09.000Z</updated>
   <id>https://jmperezperez.com/</id>
   
   <author>
@@ -14,24 +14,6 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
-  
-  <entry>
-    <title>More examples of Progressive Image Loading</title>
-    <link href="https://jmperezperez.com/more-progressive-image-loading/"/>
-    <id>https://jmperezperez.com/more-progressive-image-loading/</id>
-    <published>2017-01-28T16:56:42.000Z</published>
-    <updated>2017-01-28T18:56:50.000Z</updated>
-    
-    <content type="html"><![CDATA[<p>In <a href="/medium-image-progressive-loading-placeholder">a past post</a> I dissected a technique used by Medium to display images, transitioning from a blurry image to the final one. Since then I have found some more sites following a similar approach. Let’s see how Quora, Quartz and other sites do it.</p><h2 id="Quick-Introduction"><a href="#Quick-Introduction" class="headerlink" title="Quick Introduction"></a>Quick Introduction</h2><p>Images are the largest assets on web pages and they account for two thirds of the bytes. Image optimisation and choosing the right image format is paramount. In addition, some sites are also using small thumbnails as placeholders while the final image hasn’t loaded yet. This technique is also called <em>“<a href="https://css-tricks.com/the-blur-up-technique-for-loading-background-images/" target="_blank" rel="external">blur-up</a>”</em>. It basically tries to improve user’s perceived performance while also saving data traffic when combined with lazy-loading.</p><p>There are other alternatives to this approach. One of them consists of using a single JPEG image, tweaking its scan script to quickly render an initial pixelated version of the image and progressively load the final image in several scans. I recommend you having a look at <a href="http://cloudinary.com/blog/progressive_jpegs_and_green_martians" target="_blank" rel="external">Progressive JPEGs and green Martians</a> to know more about this.</p><h3 id="Quartz"><a href="#Quartz" class="headerlink" title="Quartz"></a>Quartz</h3><p>Take a look at the following video, recorded when accessing <a href="https://qz.com/894001/theres-a-wrong-and-a-right-way-to-talk-to-your-dog-according-to-science/" target="_blank" rel="external">a page on QZ.com</a> with a throttled connection:</p><figure class="videoWrapper"><iframe width="720" height="393" src="https://www.youtube.com/embed/Cbz3V4FGCE4" frameborder="0" allowfullscreen></iframe></figure><p>Quartz’s implementation follows this steps:</p><ol><li>Request a small <code>&lt;img/&gt;</code> that will be blurred. In their case, they use 50px width images, with a 80% quality.</li><li>Apply blur effect using a CSS filter.</li><li>Request the large image.</li></ol><p>One of the interesting points about Quartz is that their markup specifies the large image using the syntax for responsive images. The main difference is that they use a <code>data-srcset</code> attribute, so they control when to make the request and prevent the browser from requesting the large version of the image when the markup is parsed.</p><p>I find this approach very neat since they try to follow the “standard” way to serve images, adding extra bits to lazy load and animate the transition.</p><figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">&lt;figure class=”progressive-image featured-image size-extra-large “&gt; &lt;picture style=”padding-bottom: 56.1875%; background-image: url(https://qzprod.files.wordpress.com/2017/01/fish.jpg?quality=80&amp;strip=all&amp;w=50);&quot;&gt; &lt;img src=”https://qzprod.files.wordpress.com/2017/01/fish.jpg?quality=80&amp;strip=all&amp;w=50&quot; class=”progressive-image-thumbnail”&gt; &lt;img itemprop=”image” data-srcset=”https://qzprod.files.wordpress.com/2017/01/fish.jpg?quality=80&amp;strip=all&amp;w=320 320w, https://qzprod.files.wordpress.com/2017/01/fish.jpg?quality=80&amp;strip=all&amp;w=640 640w, https://qzprod.files.wordpress.com/2017/01/fish.jpg?quality=80&amp;strip=all&amp;w=940 940w, https://qzprod.files.wordpress.com/2017/01/fish.jpg?quality=80&amp;strip=all&amp;w=1600 1600w, https://qzprod.files.wordpress.com/2017/01/fish.jpg?quality=80&amp;strip=all&amp;w=3200 3200w” sizes=”” data-src=”https://qzprod.files.wordpress.com/2017/01/fish.jpg?quality=80&amp;strip=all&amp;w=320&quot; class=”progressive-image-large” alt=”INDIA-fishermen” title=””/&gt; &lt;noscript&gt; &lt;img src=”https://qzprod.files.wordpress.com/2017/01/fish.jpg?quality=80&amp;strip=all&amp;w=320&quot; alt=”INDIA-fishermen” title=””&gt; &lt;/noscript&gt; &lt;/picture&gt; &lt;figcaption class=”featured-image-caption”&gt; &lt;div class=”content-width-responsive”&gt; &lt;i class=”icon-camera”&gt;&lt;/i&gt;On the move. &lt;span class=”featured-image-credit has-space”&gt; (Reuters/Sivaram V)&lt;/span&gt; &lt;/div&gt; &lt;/figcaption&gt;&lt;/figure&gt;</div></pre></td></tr></table></figure><h2 id="Quora"><a href="#Quora" class="headerlink" title="Quora"></a>Quora</h2><p>Quora’s markup follows this structure: The initial thumbnail is inlined using a data-URI. This image is really small (6x10px). The data URI is set as an attribute to a<canvas>. Apply blur effect using canvas. Request the large image.</canvas></p><p>How does Quora (pre) load images? Answer: This is a technique found in many web-apps now. I was also intrigued when I noticed it on Medium for the first…www.quora.com Quora is the first example I see where they inline the thumbnail. This has its trade-offs, though. On the one hand, it increments the payload for the initial request, which they circumvent by generating a really small thumbnail. On the other hand, the main advantage of inlining it would be an immediate rendering. However, since Quora inlines it as a data attribute for a canvas, the page has to wait until the needed JS is downloaded (it is stored in their “main” bundle, in an external file) and executed.</p>]]></content>
-    
-    <summary type="html">
-    
-      Reading List with some articles from December 2016 - January 2017
-    
-    </summary>
-    
-    
-  </entry>
   
   <entry>
     <title>Reading List</title>
@@ -420,6 +402,26 @@
     
     
       <category term="progressive" scheme="https://jmperezperez.com/tags/progressive/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Using ES6 today</title>
+    <link href="https://jmperezperez.com/use-es6-today/"/>
+    <id>https://jmperezperez.com/use-es6-today/</id>
+    <published>2015-07-20T06:20:00.000Z</published>
+    <updated>2016-11-21T08:17:14.000Z</updated>
+    
+    <content type="html"><![CDATA[<p>Yesterday I was reading <a href="https://medium.com/javascript-scene/how-to-use-es6-for-isomorphic-javascript-apps-2a9c3abe5ea2" target="_blank" rel="external">How to Use ES6 for Universal JavaScript Apps</a> and decided to create <a href="https://github.com/JMPerez/es6-template" target="_blank" rel="external">a small template</a> from which I can start a project using ES6 both client and server-side. <em>Note: You can replace the term “ES6” with ES2015, ES.next or whatever it’s called today, you get the idea.</em></p><a id="more"></a><p>Although everyone is promoting ES6 nowadays, the truth is that using it in a real project is not that straightforward. I spent some time with <a href="https://github.com/JMPerez/linkedin-to-json-resume" target="_blank" rel="external">LinkedIn to JSON Résumé</a> trying to figure out how to easily compile to ES5 and how to import modules as defined in ES6 instead of NodeJS’s <code>require</code>.</p><p>Generally speaking I haven’t been a big fan of CoffeeScript. Nor LESS nor SASS. I could use them in a small project to understand their reason to be, but I haven’t enough reasons to sell it to my colleagues when building or rewriting a real project.</p><p>It’s not that it doesn’t have its advantages, it’s that today the hot thing is X and tomorrow is Y. I’m even using <code>Makefile</code> in some projects just to not have to decide between <code>grunt</code> and <code>gulp</code>.</p><p>Sticking to the standard does make sense. And using tools to polyfill it until it becomes a reality in all modern browsers.</p><p>So I can’t but recommend you start to get familiar with ES6 and try to apply it in small projects first, to get used to it and be better prepared for the coming ES7.</p>]]></content>
+    
+    <summary type="html">
+    
+      Setting up ES6 in your next web project isn&#39;t that difficult... if you know how.
+    
+    </summary>
+    
+    
+      <category term="es6" scheme="https://jmperezperez.com/tags/es6/"/>
     
   </entry>
   
