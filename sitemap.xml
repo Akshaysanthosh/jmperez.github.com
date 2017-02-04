@@ -2,6 +2,13 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://jmperezperez.com/manifest.json</loc>
+    
+    <lastmod>2017-02-04T17:22:47.000Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>https://jmperezperez.com/projects/index.html</loc>
     
     <lastmod>2017-02-04T17:02:59.000Z</lastmod>

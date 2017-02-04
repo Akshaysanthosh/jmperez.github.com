@@ -8,46 +8,56 @@ const cacheFiles = [
   '/offline/'
 ];
 
-self.addEventListener('activate', event => {
-  event.waitUntil(
+self.addEventListener('activate', evt =>
+  evt.waitUntil(
     caches.keys().then(cacheNames => {
       return Promise.all(
         cacheNames.map(cacheName => {
           if (cacheName !== CURRENT_CACHE) {
-            console.log('Deleting out of date cache:', cacheName);
             return caches.delete(cacheName);
           }
         })
       );
     })
-  );
-});
+  )
+);
 
-self.addEventListener('install', event => {
-  console.log('installing ' + CURRENT_CACHE);
-  console.log('test');
-
-  event.waitUntil(
+self.addEventListener('install', evt =>
+  evt.waitUntil(
     caches.open(CURRENT_CACHE)
-      .then(function(cache) {
-        console.log('Opened cache ' + CURRENT_CACHE);
+      .then(cache => {
         return cache.addAll(cacheFiles);
       })
-  );
-});
+  )
+);
 
-self.addEventListener('fetch', event => {
-  event.respondWith(
-    caches.match(event.request)
-      .then(response => {
-        // Grab the asset from SW cache.
-        if (response) {
-          return response;
-        }
-        return fetch(event.request);
-    }).catch(() => {
-      // Can't access the network return an offline page from the cache
-      return caches.match('/offline/');
-    })
+const fromNetwork = (request, timeout) =>
+  new Promise( (fulfill, reject) => {
+    var timeoutId = setTimeout(reject, timeout);
+    fetch(request).then(response => {
+      clearTimeout(timeoutId);
+      fulfill(response);
+      update(request);
+    }, reject);
+  })
+
+const fromCache = request =>
+  caches.open(CURRENT_CACHE).then(cache =>
+    cache.match(request).then(matching =>
+      matching || cache.match('/offline/')
+    )
   );
+
+const update = request =>
+  caches.open(CURRENT_CACHE).then(cache =>
+    fetch(request).then(response =>
+      cache.put(request, response)
+    )
+  );
+
+self.addEventListener('fetch', evt => {
+  evt.respondWith(fromNetwork(evt.request, 400).catch(
+    () => fromCache(evt.request)
+  ));
+  evt.waitUntil(update(evt.request));
 });
