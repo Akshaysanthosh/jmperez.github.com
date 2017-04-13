@@ -75,7 +75,8 @@ iframe,
 video,
 amp-video,
 amp-vimeo,
-amp-youtube {
+amp-youtube,
+twitterwidget {
     margin: 0;
     margin-bottom: 1em;
 }
