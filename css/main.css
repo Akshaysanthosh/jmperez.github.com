@@ -75,10 +75,13 @@ iframe,
 video,
 amp-video,
 amp-vimeo,
-amp-youtube,
-twitterwidget {
+amp-youtube {
     margin: 0;
     margin-bottom: 1em;
+}
+
+twitterwidget {
+  margin-bottom: 1em !important;
 }
 
 a {
