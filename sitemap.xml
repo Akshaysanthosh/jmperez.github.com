@@ -2,6 +2,20 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://jmperezperez.com/talks/index.html</loc>
+    
+    <lastmod>2017-04-14T09:12:41.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://jmperezperez.com/about-me/index.html</loc>
+    
+    <lastmod>2017-04-14T09:11:49.000Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>https://jmperezperez.com/line-height-mutiple-line-ellipsis-responsiveness/</loc>
     
     <lastmod>2017-04-14T08:52:59.000Z</lastmod>
@@ -89,13 +103,6 @@
     <loc>https://jmperezperez.com/2017-01-reading-list/</loc>
     
     <lastmod>2017-02-04T16:59:00.000Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://jmperezperez.com/about-me/index.html</loc>
-    
-    <lastmod>2017-02-04T16:58:47.000Z</lastmod>
     
   </url>
   
