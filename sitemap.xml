@@ -2,6 +2,13 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://jmperezperez.com/spotify-connect-api/</loc>
+    
+    <lastmod>2017-04-21T22:08:41.000Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>https://jmperezperez.com/talks/index.html</loc>
     
     <lastmod>2017-04-14T09:12:41.000Z</lastmod>
@@ -632,14 +639,14 @@
   </url>
   
   <url>
-    <loc>https://jmperezperez.com/404.html</loc>
+    <loc>https://jmperezperez.com/hacks/iquiz/index.html</loc>
     
     <lastmod>2016-11-21T07:58:45.000Z</lastmod>
     
   </url>
   
   <url>
-    <loc>https://jmperezperez.com/hacks/iquiz/index.html</loc>
+    <loc>https://jmperezperez.com/404.html</loc>
     
     <lastmod>2016-11-21T07:58:45.000Z</lastmod>
     
