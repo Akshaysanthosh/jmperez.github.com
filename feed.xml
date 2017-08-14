@@ -5,7 +5,7 @@
   <link href="/feed.xml" rel="self"/>
   
   <link href="https://jmperezperez.com/"/>
-  <updated>2017-06-29T13:36:31.000Z</updated>
+  <updated>2017-08-14T17:53:20.000Z</updated>
   <id>https://jmperezperez.com/</id>
   
   <author>
@@ -14,6 +14,26 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Hiding the outline or :focus ring in an accessible way</title>
+    <link href="https://jmperezperez.com/outline-focus-ring-a11y/"/>
+    <id>https://jmperezperez.com/outline-focus-ring-a11y/</id>
+    <published>2017-08-14T15:00:00.000Z</published>
+    <updated>2017-08-14T17:53:20.000Z</updated>
+    
+    <content type="html"><![CDATA[<p>Last week I came across <a href="https://hackernoon.com/removing-that-ugly-focus-ring-and-keeping-it-too-6c8727fefcd2" target="_blank" rel="external">Removing that ugly :focus ring (and keeping it too)</a>. It’s a really good post about <code>outline</code>, that CSS property lots of devs tend to hide. The post explains some a11y-friendly alternatives to not display it, and show it when needed.</p><a id="more"></a><p>In the past I have made the same mistake of hiding the <code>outline</code> altogether, but no more!</p><p>A few months ago I came across a similar technique David Gilbertson describes, while inspecting the markup on Youtube.com. They take accessibility seriously and their player is a very good example to get inspiration from.</p><p>I then applied it to one of the Spotify sites I work on. Take <a href="https://open.spotify.com/track/2ZBNclC5wm4GtiWaeh0DMx?fo=1" target="_blank" rel="external">this Spotify page as an example</a>. This is how it works:</p><ol><li>Add a <code>no-focus-outline</code> CSS class to the <code>&lt;html&gt;</code> element.</li><li>Hide the outline using CSS only in <code>&lt;a&gt;</code> and <code>&lt;button&gt;</code> elements that descend from that class.</li><li>When tabbing, remove the CSS class.</li></ol><p>The complete code:</p><p><strong>CSS</strong><figure class="highlight css"><table><tr><td class="code"><pre><div class="line"><span class="selector-class">.no-focus-outline</span> <span class="selector-tag">a</span><span class="selector-pseudo">:focus</span>,</div><div class="line"><span class="selector-class">.no-focus-outline</span> <span class="selector-tag">button</span><span class="selector-pseudo">:focus</span> &#123;</div><div class="line">  <span class="attribute">outline</span>: none;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p><p><strong>JS</strong><figure class="highlight js"><table><tr><td class="code"><pre><div class="line"><span class="comment">// Listen to tab events to enable outlines (accessibility improvement)</span></div><div class="line"><span class="built_in">document</span>.body.addEventListener(<span class="string">'keyup'</span>, <span class="function"><span class="keyword">function</span>(<span class="params">e</span>) </span>&#123;</div><div class="line">  <span class="keyword">if</span> (e.which === <span class="number">9</span>) <span class="comment">/* tab */</span> &#123;</div><div class="line">    <span class="built_in">document</span>.documentElement.classList.remove(<span class="string">'no-focus-outline'</span>);</div><div class="line">  &#125;</div><div class="line">&#125;);</div></pre></td></tr></table></figure></p><p>And a video showing what it looks like when tabbing:</p><div style="text-align:center"><video width="320" height="560" controls><source src="/assets/images/posts/css-outline-focus.webm" type="video/webm"><source src="/assets/images/posts/css-outline-focus.mp4" type="video/mp4"></video></div><p>Some additional a11y improvements are that I apply the same effect on hover and on focus, like when going through the “More by …” albums section. Last, but not least, the track row acts as a button to start the playback.</p><p>These are some small touches that very few people will realise, but are not difficult to implement and can have a very positive impact for some users.</p>]]></content>
+    
+    <summary type="html">
+    
+      A simple technique to Reading List with some articles from June 2017
+    
+    </summary>
+    
+    
+      <category term="web" scheme="https://jmperezperez.com/tags/web/"/>
+    
+  </entry>
   
   <entry>
     <title>Reading List</title>
@@ -390,28 +410,6 @@
     
     
       <category term="svg" scheme="https://jmperezperez.com/tags/svg/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Drawing images using edge detection and SVG animation</title>
-    <link href="https://jmperezperez.com/drawing-edges-svg/"/>
-    <id>https://jmperezperez.com/drawing-edges-svg/</id>
-    <published>2015-12-18T08:42:00.000Z</published>
-    <updated>2016-11-21T08:16:16.000Z</updated>
-    
-    <content type="html"><![CDATA[<p>Back in the days SVG was barely used and supported. Some time after we started using them as an alternative to classic bitmaps for some icons, and finally we discovered it was the holy grail for providing responsive graphics. The flat and clean design trends have also make SVG as a very useful image format.</p><p>But SVG allows for even cooler features, thanks to the ability of modifying it using CSS and JS. And with some clever techniques we can make fun things, like <em>drawing</em> the borders of an image.</p><a id="more"></a><p>If you are like me and like to see the final result before going through a wall of text, here is a video that shows the result of applying this effect to a couple of images:</p><video controls style="max-width:100%" width="718" height="756"><source src="/assets/images/posts/contour.mp4" type="video/mp4"></video><h2 id="Animate-SVGs-to-achieve-a-drawing-effect"><a href="#Animate-SVGs-to-achieve-a-drawing-effect" class="headerlink" title="Animate SVGs to achieve a drawing effect"></a>Animate SVGs to achieve a <em>drawing</em> effect</h2><p>One of the applications I like is path animation. This draws slowly the lines that compose the SVG. If you don’t know what this is about, please check <a href="http://www.polygon.com/a/ps4-review" target="_blank" rel="external">Polygon’s reviews for PS4</a> and <a href="http://www.polygon.com/a/xbox-one-review" target="_blank" rel="external">Xbox One</a>. The effect is achieved by applying transitions to the <code>stroke-dashoffset</code> of SVG polylines.</p><p>Some time ago I played with <a href="https://github.com/JMPerez/spotify-logo-svg-drawing-animation" target="_blank" rel="external">this technique and the vector version of the Spotify logo</a>:</p><p></p><p data-height="403" data-theme-id="0" data-slug-hash="rxxRRg" data-default-tab="result" data-user="jmperez" class="codepen">See the Pen <a href="http://codepen.io/jmperez/pen/rxxRRg/" target="_blank" rel="external">Drawing SVGs - Spotify Logo</a> by José Manuel Pérez (<a href="http://codepen.io/jmperez" target="_blank" rel="external">@jmperez</a>) on <a href="http://codepen.io" target="_blank" rel="external">CodePen</a>.</p><script async src="//assets.codepen.io/assets/embed/ei.js"></script><p>This was based on <a href="http://codepen.io/derekjp/pen/KIGFe/" target="_blank" rel="external">the SVG Animation (Polygon.com PS4 Review) pen by Derek Palladino</a>, who reproduced Polygon’s drawings.</p><h2 id="Applying-the-technique-to-bitmap-images"><a href="#Applying-the-technique-to-bitmap-images" class="headerlink" title="Applying the technique to bitmap images"></a>Applying the technique to bitmap images</h2><p>Then one day I started thinking of drawing the contours of bitmap images. I would detect the contours of an image using canvas, and then I would create segments of adjacent points. As expected, some smart people have already worked on these things before, and I pretty much just had to put it together.</p><p>That’s how I created Contour. The project is <a href="https://github.com/JMPerez/contour" target="_blank" rel="external">on GitHub</a>, so feel free to clone it and tweak it. And if you want to try it out right now, I have embedded it right here:</p><iframe src="https://jmperezperez.com/contour/" width="100%" height="500"></iframe><p>You can drag and drop any image. It will work better with images with areas with high contrast.</p><p>You may wonder how this works, who doesn’t?</p><h3 id="Canvas"><a href="#Canvas" class="headerlink" title="Canvas"></a>Canvas</h3><p>First, the image that you drop is drawn into a canvas that has a maximum size. If the image exceeds that size, it is downscaled. This allows us to process larger images without making the browser become super slow. The smallest the canvas, the fastest, but also the less accurate would be the SVG lines.</p><p>Then, there is the core process: detecting edges and creating SVG lines out of them.</p><h3 id="Canny-edge-detector"><a href="#Canny-edge-detector" class="headerlink" title="Canny edge detector"></a>Canny edge detector</h3><p>I read about the <a href="https://en.wikipedia.org/wiki/Canny_edge_detector" target="_blank" rel="external">Canny edge detector</a> trying to find an algorithm that detected the edges from an image, and then found a JS implementation. <a href="https://github.com/yuta1984/CannyJS" target="_blank" rel="external">Canny JS</a> is one of them, and performs well. However, in the end I chose <a href="https://github.com/cmisenas/canny-edge-detection" target="_blank" rel="external">Jade Misenas’s project</a> because I could visualise better the steps of the algorithm and it resulted in longer lines with fewer gaps. This is important, since we need to be able to generate SVG lines by following the pixels that are part of the edge.</p><p>By the way, if you want to learn more about edge detection, I recommend you to have a look at <a href="https://www.youtube.com/watch?v=uihBwtPIBxM" target="_blank" rel="external">the video Finding the Edges (Sobel Operator)</a>, that explains one of the operators that can be used when performing edge detection.</p><h3 id="Tracing-the-edge"><a href="#Tracing-the-edge" class="headerlink" title="Tracing the edge"></a>Tracing the edge</h3><p>To obtain the SVG lines I used <a href="https://github.com/Doodle3D/Contour-finding-experiment" target="_blank" rel="external">Doodle3D’s Contour finding experiment</a>, which I eventually simplified a bit. The idea is to traverse the canvas and, once we find a white pixel (edge), we follow the nearby pixels to compose the line.</p><p>One we have a set of lines, we create one SVG polyline per contour, using the pixels as points. There are some improvements we can do here:</p><ul><li><p>Simplify polyline to remove points that don’t contribute to the line, that is, they can fall behind a longer segment. An example is having a horizontal line spanning through several pixels, that can be defined by 2 points instead of a line with 1 point per pixel. Doing this saves potentially lots of points, especially if there are lots of vertical or horizontal lines.</p></li><li><p>Smooth the polyline to match better arcs or diagonal lines that produce a stairstep-like line. In the project this is achieved by using half of the points to draw the image. The result is not that close to the border, but helps reducing those stairstep-like lines.</p></li><li><p>Use web workers to do the detection of the contour. This would prevent the browser from freezing for a few milliseconds.</p></li></ul><h2 id="Applications"><a href="#Applications" class="headerlink" title="Applications"></a>Applications</h2><p>The effect is cool by itself and doesn’t take long to compute. The browser needs the image to create the SVG lines, but this could be stored somewhere and be served as inlined SVG or a standalone SVG file. And doing this we suddenly have found a way to start <em>rendering</em> an image without having downloaded it yet. Also, note that SVG is highly compressible and we have full control of how many lines and points we want to use to represent the image.</p><p>If you have been following this blog, I have been talking lately about techniques to load images in a progressive way, with the <a href="/medium-image-progressive-loading-placeholder/"><em>blur up</em> technique used by Medium</a> and the use of <a href="/webp-placeholder-images/">WebP as placeholders</a>.</p><p>So I see this drawing effect as not only a fun thing to do with images, but also a way to provide a <em>placeholder</em> while the final image is downloaded.</p>]]></content>
-    
-    <summary type="html">
-    
-      Using SVGs to achieve a cool drawing effect
-    
-    </summary>
-    
-    
-      <category term="images" scheme="https://jmperezperez.com/tags/images/"/>
-    
-      <category term="ux" scheme="https://jmperezperez.com/tags/ux/"/>
     
   </entry>
   
