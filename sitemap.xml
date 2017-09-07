@@ -2,6 +2,13 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://jmperezperez.com/talks/index.html</loc>
+    
+    <lastmod>2017-09-07T07:15:51.000Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>https://jmperezperez.com/collaborative-listening-spotify/</loc>
     
     <lastmod>2017-08-24T07:08:05.000Z</lastmod>
@@ -40,13 +47,6 @@
     <loc>https://jmperezperez.com/web-is-back/</loc>
     
     <lastmod>2017-06-29T13:33:17.000Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://jmperezperez.com/talks/index.html</loc>
-    
-    <lastmod>2017-05-19T20:15:48.000Z</lastmod>
     
   </url>
   
