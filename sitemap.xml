@@ -2,6 +2,20 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://jmperezperez.com/talks/index.html</loc>
+    
+    <lastmod>2017-10-22T15:35:35.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://jmperezperez.com/medium-image-progressive-loading-placeholder/</loc>
+    
+    <lastmod>2017-10-22T14:57:28.000Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>https://jmperezperez.com/wecodesign-pwa/</loc>
     
     <lastmod>2017-10-05T08:54:10.000Z</lastmod>
@@ -19,13 +33,6 @@
     <loc>https://jmperezperez.com/2017-07-reading-list/</loc>
     
     <lastmod>2017-09-28T08:53:47.000Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://jmperezperez.com/talks/index.html</loc>
-    
-    <lastmod>2017-09-26T06:37:23.000Z</lastmod>
     
   </url>
   
@@ -110,13 +117,6 @@
     <loc>https://jmperezperez.com/more-progressive-image-loading/</loc>
     
     <lastmod>2017-03-22T06:52:40.000Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://jmperezperez.com/medium-image-progressive-loading-placeholder/</loc>
-    
-    <lastmod>2017-03-05T19:01:50.000Z</lastmod>
     
   </url>
   
