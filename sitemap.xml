@@ -2,6 +2,13 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://jmperezperez.com/svg-placeholders/</loc>
+    
+    <lastmod>2017-11-05T09:52:00.000Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>https://jmperezperez.com/medium-image-progressive-loading-placeholder/</loc>
     
     <lastmod>2017-11-04T06:53:20.000Z</lastmod>
@@ -54,13 +61,6 @@
     <loc>https://jmperezperez.com/duotone-using-css-blend-modes/</loc>
     
     <lastmod>2017-11-04T06:40:29.000Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://jmperezperez.com/svg-placeholders/</loc>
-    
-    <lastmod>2017-11-04T06:39:43.000Z</lastmod>
     
   </url>
   

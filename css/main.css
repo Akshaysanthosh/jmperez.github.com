@@ -557,3 +557,9 @@ footer {
 img + .caption {
     margin-top: -4%;
 }
+
+.codepen-aspect-ratio > iframe {
+    height: 100%;
+    position: absolute;
+    width: 100%;
+}
