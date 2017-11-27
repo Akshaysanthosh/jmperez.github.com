@@ -2,6 +2,13 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://jmperezperez.com/projects/index.html</loc>
+    
+    <lastmod>2017-11-27T22:22:54.000Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>https://jmperezperez.com/optimising-svgs/</loc>
     
     <lastmod>2017-11-22T21:34:24.000Z</lastmod>
@@ -86,14 +93,7 @@
   </url>
   
   <url>
-    <loc>https://jmperezperez.com/console-log-favicon/</loc>
-    
-    <lastmod>2017-11-09T17:33:19.000Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://jmperezperez.com/head-section-meta-tags-hell/</loc>
+    <loc>https://jmperezperez.com/estudiando-el-rediseno-de-la-web-del-senado-de-espana/</loc>
     
     <lastmod>2017-11-09T17:33:19.000Z</lastmod>
     
@@ -107,6 +107,20 @@
   </url>
   
   <url>
+    <loc>https://jmperezperez.com/emigrando-a-suecia/</loc>
+    
+    <lastmod>2017-11-09T17:33:19.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://jmperezperez.com/console-log-favicon/</loc>
+    
+    <lastmod>2017-11-09T17:33:19.000Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>https://jmperezperez.com/mobile-proxy-browsers-back/</loc>
     
     <lastmod>2017-11-09T17:33:19.000Z</lastmod>
@@ -114,14 +128,7 @@
   </url>
   
   <url>
-    <loc>https://jmperezperez.com/music-hack-day-stockholm-2013/</loc>
-    
-    <lastmod>2017-11-09T17:33:19.000Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://jmperezperez.com/facebook-ios-html5-native/</loc>
+    <loc>https://jmperezperez.com/mlocjs-conference-budapest/</loc>
     
     <lastmod>2017-11-09T17:33:19.000Z</lastmod>
     
@@ -135,28 +142,28 @@
   </url>
   
   <url>
+    <loc>https://jmperezperez.com/music-hack-day-stockholm-2013/</loc>
+    
+    <lastmod>2017-11-09T17:33:19.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://jmperezperez.com/head-section-meta-tags-hell/</loc>
+    
+    <lastmod>2017-11-09T17:33:19.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://jmperezperez.com/facebook-ios-html5-native/</loc>
+    
+    <lastmod>2017-11-09T17:33:19.000Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>https://jmperezperez.com/desktop-hybrid-apps-not-only-mobile/</loc>
-    
-    <lastmod>2017-11-09T17:33:19.000Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://jmperezperez.com/estudiando-el-rediseno-de-la-web-del-senado-de-espana/</loc>
-    
-    <lastmod>2017-11-09T17:33:19.000Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://jmperezperez.com/emigrando-a-suecia/</loc>
-    
-    <lastmod>2017-11-09T17:33:19.000Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://jmperezperez.com/mlocjs-conference-budapest/</loc>
     
     <lastmod>2017-11-09T17:33:19.000Z</lastmod>
     
@@ -299,13 +306,6 @@
     <loc>https://jmperezperez.com/manifest.json</loc>
     
     <lastmod>2017-02-04T17:22:47.000Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://jmperezperez.com/projects/index.html</loc>
-    
-    <lastmod>2017-02-04T17:02:59.000Z</lastmod>
     
   </url>
   
