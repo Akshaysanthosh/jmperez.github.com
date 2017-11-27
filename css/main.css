@@ -238,6 +238,13 @@ code {
     text-transform: uppercase;
 }
 
+@media(max-width: 500px) {
+  #menu a {
+    margin-left: 10px;
+    padding: 10px 5px;
+  }
+}
+
 #menu a:first-child {
     margin-left: 0;
 }
