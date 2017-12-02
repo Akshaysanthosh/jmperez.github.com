@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
   <title>Jose M. Perez&#39;s Blog</title>
+  
   <subtitle>Web development, performance, and some other good practices.</subtitle>
   <link href="/feed.xml" rel="self"/>
   
