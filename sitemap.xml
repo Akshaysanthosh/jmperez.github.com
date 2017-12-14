@@ -2,6 +2,13 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://jmperezperez.com/wecodesign-pwa/</loc>
+    
+    <lastmod>2017-12-14T16:45:16.000Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>https://jmperezperez.com/talks/index.html</loc>
     
     <lastmod>2017-12-09T13:25:37.000Z</lastmod>
@@ -107,6 +114,20 @@
   </url>
   
   <url>
+    <loc>https://jmperezperez.com/developing-spotify-apps/</loc>
+    
+    <lastmod>2017-11-09T17:33:19.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://jmperezperez.com/mlocjs-conference-budapest/</loc>
+    
+    <lastmod>2017-11-09T17:33:19.000Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>https://jmperezperez.com/console-log-favicon/</loc>
     
     <lastmod>2017-11-09T17:33:19.000Z</lastmod>
@@ -121,35 +142,7 @@
   </url>
   
   <url>
-    <loc>https://jmperezperez.com/developing-spotify-apps/</loc>
-    
-    <lastmod>2017-11-09T17:33:19.000Z</lastmod>
-    
-  </url>
-  
-  <url>
     <loc>https://jmperezperez.com/head-section-meta-tags-hell/</loc>
-    
-    <lastmod>2017-11-09T17:33:19.000Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://jmperezperez.com/mlocjs-conference-budapest/</loc>
-    
-    <lastmod>2017-11-09T17:33:19.000Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://jmperezperez.com/spain-js-2013/</loc>
-    
-    <lastmod>2017-11-09T17:33:19.000Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://jmperezperez.com/estudiando-el-rediseno-de-la-web-del-senado-de-espana/</loc>
     
     <lastmod>2017-11-09T17:33:19.000Z</lastmod>
     
@@ -163,7 +156,21 @@
   </url>
   
   <url>
+    <loc>https://jmperezperez.com/spain-js-2013/</loc>
+    
+    <lastmod>2017-11-09T17:33:19.000Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>https://jmperezperez.com/mobile-proxy-browsers-back/</loc>
+    
+    <lastmod>2017-11-09T17:33:19.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://jmperezperez.com/estudiando-el-rediseno-de-la-web-del-senado-de-espana/</loc>
     
     <lastmod>2017-11-09T17:33:19.000Z</lastmod>
     
@@ -236,13 +243,6 @@
     <loc>https://jmperezperez.com/duotone-using-css-blend-modes/</loc>
     
     <lastmod>2017-11-04T06:40:29.000Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://jmperezperez.com/wecodesign-pwa/</loc>
-    
-    <lastmod>2017-10-05T08:54:10.000Z</lastmod>
     
   </url>
   
