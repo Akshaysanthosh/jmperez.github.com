@@ -2,6 +2,20 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://jmperezperez.com/my-2017/</loc>
+    
+    <lastmod>2017-12-20T17:09:57.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://jmperezperez.com/projects/index.html</loc>
+    
+    <lastmod>2017-12-20T16:18:13.000Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>https://jmperezperez.com/wecodesign-pwa/</loc>
     
     <lastmod>2017-12-14T17:24:07.000Z</lastmod>
@@ -9,14 +23,14 @@
   </url>
   
   <url>
-    <loc>https://jmperezperez.com/medium-image-progressive-loading-placeholder/</loc>
+    <loc>https://jmperezperez.com/talks/index.html</loc>
     
     <lastmod>2017-12-14T16:45:16.000Z</lastmod>
     
   </url>
   
   <url>
-    <loc>https://jmperezperez.com/talks/index.html</loc>
+    <loc>https://jmperezperez.com/medium-image-progressive-loading-placeholder/</loc>
     
     <lastmod>2017-12-14T16:45:16.000Z</lastmod>
     
@@ -33,13 +47,6 @@
     <loc>https://jmperezperez.com/react-alicante-2017/</loc>
     
     <lastmod>2017-11-28T07:12:09.000Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://jmperezperez.com/projects/index.html</loc>
-    
-    <lastmod>2017-11-27T22:22:54.000Z</lastmod>
     
   </url>
   
@@ -142,14 +149,14 @@
   </url>
   
   <url>
-    <loc>https://jmperezperez.com/mobile-proxy-browsers-back/</loc>
+    <loc>https://jmperezperez.com/emigrando-a-suecia/</loc>
     
     <lastmod>2017-11-09T17:33:19.000Z</lastmod>
     
   </url>
   
   <url>
-    <loc>https://jmperezperez.com/emigrando-a-suecia/</loc>
+    <loc>https://jmperezperez.com/mobile-proxy-browsers-back/</loc>
     
     <lastmod>2017-11-09T17:33:19.000Z</lastmod>
     
@@ -170,6 +177,13 @@
   </url>
   
   <url>
+    <loc>https://jmperezperez.com/desktop-hybrid-apps-not-only-mobile/</loc>
+    
+    <lastmod>2017-11-09T17:33:19.000Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>https://jmperezperez.com/estudiando-el-rediseno-de-la-web-del-senado-de-espana/</loc>
     
     <lastmod>2017-11-09T17:33:19.000Z</lastmod>
@@ -178,13 +192,6 @@
   
   <url>
     <loc>https://jmperezperez.com/facebook-ios-html5-native/</loc>
-    
-    <lastmod>2017-11-09T17:33:19.000Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://jmperezperez.com/desktop-hybrid-apps-not-only-mobile/</loc>
     
     <lastmod>2017-11-09T17:33:19.000Z</lastmod>
     
